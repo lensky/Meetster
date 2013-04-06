@@ -21,17 +21,19 @@ abstract class YLSQLiteOpenHelper extends SQLiteOpenHelper {
 		String SQLQuery = "create table " + contract.getTableName() + " ( ";
 		SQLQuery += BaseColumns._ID + " integer primary key autoincrement, ";
 		
-		String[] columns = contract.getColumnTypes();
+		String[] columns = contract.getColumns();
 		String[] columnTypes = contract.getColumnTypes();
 		
 		for (int i = 0; i < columns.length; i++) {
 			SQLQuery += columns[i] + " " + columnTypes[i];
 			if (i < columns.length - 1) {
-				SQLQuery += ",";
+				SQLQuery += ", ";
 			}
-			SQLQuery += " ";
 		}
-		SQLQuery += ")";
+		for (String string : contract.getExtraConstraints()) {
+			SQLQuery += ", " + string;
+		}
+		SQLQuery += " )";
 		
 		db.execSQL(SQLQuery);
 	}

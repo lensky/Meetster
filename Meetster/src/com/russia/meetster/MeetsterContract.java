@@ -4,14 +4,14 @@ import android.provider.BaseColumns;
 
 public class MeetsterContract {
 	
-	private static String addForeignKeyReference(String type, String table) {
-		return type + " foreign key references " + table + "(" + BaseColumns._ID + ")";
+	private static String addForeignKeyConstraint(String localCol, String remoteTable, String remoteCol) {
+		return "foreign key(" + localCol + ") references " + remoteTable + "(" + remoteCol + ")";
 	}
 	
 	private final static class TABLES {
-		public final static String EVENTS = "events.db";
-		public final static String CATEGORIES = "categories.db";
-		public final static String FRIENDS = "friends.db";
+		public final static String EVENTS = "events";
+		public final static String CATEGORIES = "categories";
+		public final static String FRIENDS = "friends";
 	}
 	
 	final static class EventsContract implements BaseTableContract {
@@ -48,9 +48,9 @@ public class MeetsterContract {
 		
 		public String[] getColumnTypes() {
 			return new String[] {
-					addForeignKeyReference("integer", Friends.getTableName()),
+					"integer",
 					"datetime default current_timestamp",
-					addForeignKeyReference("integer", Categories.getTableName()),
+					"integer",
 					"text", // NOTE: THIS MEANS SERIALIZING DATA
 					"text",
 					"datetime",
@@ -59,6 +59,13 @@ public class MeetsterContract {
 					"real",
 					"real",
 					"text",
+			};
+		}
+		
+		public String[] getExtraConstraints() {
+			return new String[] {
+					addForeignKeyConstraint(CREATORID, Friends.getTableName(), BaseColumns._ID),
+					addForeignKeyConstraint(CATEGORY, Categories.getTableName(), BaseColumns._ID),
 			};
 		}
 		
@@ -85,6 +92,10 @@ public class MeetsterContract {
 		public String getTableName() {
 			return TABLES.CATEGORIES;
 		}
+		
+		public String[] getExtraConstraints() {
+			return new String[] {};
+		}
 	}
 	
 	final static class FriendsContract implements BaseTableContract {
@@ -107,6 +118,10 @@ public class MeetsterContract {
 		
 		public String getTableName() {
 			return TABLES.FRIENDS;
+		}
+		
+		public String[] getExtraConstraints() {
+			return new String[] {};
 		}
 	}
 	
