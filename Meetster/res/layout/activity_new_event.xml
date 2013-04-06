@@ -43,15 +43,6 @@
             android:layout_marginBottom="110dp"
             android:text="@string/participants"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-
-         <ImageButton
-             android:id="@+id/basketball"
-             android:layout_width="15dip"
-             android:layout_height="15dip"
-             android:layout_alignLeft="@+id/categories"
-             android:layout_below="@+id/categories"
-             android:contentDescription="@string/basketball"
-             android:background="@drawable/college_basketball" />
         <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
@@ -63,11 +54,30 @@
 
         <ImageButton
             android:id="@+id/tv_icon"
-            android:layout_width="15dip"
-            android:layout_height="15dip"
-            android:layout_alignRight="@+id/textView2"
-            android:layout_alignTop="@+id/basketball"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:layout_below="@+id/categories"
+            android:layout_marginTop="29dp"
+            android:layout_toRightOf="@+id/categories"
             android:background="@drawable/tv_icon_entertainment"
             android:contentDescription="@string/desc" />
+
+        <ImageButton
+            android:id="@+id/basketball"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:layout_alignRight="@+id/textView2"
+            android:layout_alignTop="@+id/tv_icon"
+            android:background="@drawable/college_basketball"
+            android:contentDescription="@string/basketball" />
+
+        <ImageButton
+            android:id="@+id/briefcase"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:layout_alignTop="@+id/tv_icon"
+            android:layout_toLeftOf="@+id/button1"
+            android:background="@drawable/brieflycase"
+            android:contentDescription="@string/desc3" />
 
 </RelativeLayout>

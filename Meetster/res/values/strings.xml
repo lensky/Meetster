@@ -11,5 +11,6 @@
     <string name="create">CreateEvent</string>
     <string name = "desc"></string>
     <string name = "basketball"></string>
+    <string name = "desc3"></string>
 
 </resources>
