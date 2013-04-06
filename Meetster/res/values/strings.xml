@@ -7,11 +7,13 @@
     <string name= "event_header">Create new event</string>
     <string name= "event_category">Choose a category: </string>
     <string name= "timeframe">When: </string>
-    <string name= "participants">With whom: </string>
     <string name="create">CreateEvent</string>
     <string name = "desc"></string>
     <string name = "basketball"></string>
     <string name = "desc3"></string>
     <string name = "desc2"></string>
 	<string name = "desc4"></string>
+	<string name = "titleofEvent">Enter event title: </string>
+	<string name = "particfriends">Enter participants: </string>
+	<string name = "specifyTime">When is the event: </string>
 </resources>
