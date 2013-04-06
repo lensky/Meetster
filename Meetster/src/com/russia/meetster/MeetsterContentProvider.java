@@ -19,7 +19,7 @@ abstract class YLSQLiteOpenHelper extends SQLiteOpenHelper {
 	
 	protected void createTable(SQLiteDatabase db, BaseTableContract contract) {
 		String SQLQuery = "create table " + contract.getTableName() + " ( ";
-		SQLQuery += contract._ID + " integer primary key autoincrement, ";
+		SQLQuery += BaseColumns._ID + " integer primary key autoincrement, ";
 		
 		String[] columns = contract.getColumnTypes();
 		String[] columnTypes = contract.getColumnTypes();
@@ -158,20 +158,57 @@ public class MeetsterContentProvider extends ContentProvider {
 		
 		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
 		long newid = db.insert(tableName, null, values);
+		notifyURIChange(uri);
 		return createTableIdURI(tableName, newid);
 	}
 
 	@Override
 	public int update(Uri uri, ContentValues values, String selection,
 			String[] selectionArgs) {
-		// TODO Auto-generated method stub
-		return 0;
+		String tableName;
+		
+		switch(uriMatcher.match(uri)) {
+		case UriMatcher.NO_MATCH:
+			throw new IllegalArgumentException("Invalid URI for Meetster update: " + uri);
+		default:
+			List<String> pathSegments = uri.getPathSegments();
+			tableName = pathSegments.get(0);
+			if (pathSegments.size() > 1) {
+				addIdToWhere(selection, BaseColumns._ID, uri);
+			}
+			break;
+		}
+		
+		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
+		int updatedRows = db.update(tableName, values, selection, selectionArgs);
+		
+		notifyURIChange(uri);
+		
+		return updatedRows;
 	}
 
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
-		// TODO Auto-generated method stub
-		return 0;
+		String tableName;
+
+		switch(uriMatcher.match(uri)) {
+		case UriMatcher.NO_MATCH:
+			throw new IllegalArgumentException("Invalid URI for Meetster update: " + uri);
+		default:
+			List<String> pathSegments = uri.getPathSegments();
+			tableName = pathSegments.get(0);
+			if (pathSegments.size() > 1) {
+				addIdToWhere(selection, BaseColumns._ID, uri);
+			}
+			break;
+		}
+
+		SQLiteDatabase db = sqliteHelper.getWritableDatabase();
+		int deletedRows = db.delete(tableName, selection, selectionArgs);
+				
+		notifyURIChange(uri);
+
+		return deletedRows;
 	}
 
 	@Override
