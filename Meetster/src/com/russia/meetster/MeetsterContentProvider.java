@@ -95,9 +95,9 @@ public class MeetsterContentProvider extends ContentProvider {
 
 	private final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 	
-	private void addMeetsterURI(String path, int tableCode, int tableIdCode) {
-		uriMatcher.addURI(AUTHORITY, path, tableCode);
-		uriMatcher.addURI(AUTHORITY, path + "/#", tableIdCode);
+	private void addMeetsterURI(String authority, String path, int tableCode, int tableIdCode) {
+		uriMatcher.addURI(authority, path, tableCode);
+		uriMatcher.addURI(authority, path + "/#", tableIdCode);
 	}
 	
 	// Non-static variables initialized in onCreate
@@ -107,13 +107,14 @@ public class MeetsterContentProvider extends ContentProvider {
 	@Override
 	public boolean onCreate() {
 		// Defining the path structure
-		addMeetsterURI(MeetsterContract.Events.getTableName(), EVENT, EVENT_ID);
-		addMeetsterURI(MeetsterContract.Friends.getTableName(), FRIEND, FRIEND_ID);
-		addMeetsterURI(MeetsterContract.Categories.getTableName(), CATEGORY, CATEGORY_ID);
+		AUTHORITY = getContext().getString(R.string.meetster_authority);
+
+		addMeetsterURI(AUTHORITY, MeetsterContract.Events.getTableName(), EVENT, EVENT_ID);
+		addMeetsterURI(AUTHORITY, MeetsterContract.Friends.getTableName(), FRIEND, FRIEND_ID);
+		addMeetsterURI(AUTHORITY, MeetsterContract.Categories.getTableName(), CATEGORY, CATEGORY_ID);
 		
 		// Setting non-static variables
 		sqliteHelper = new MeetsterDBOpenHelper(getContext());
-		AUTHORITY = getContext().getString(R.string.meetster_authority);
 		return true;
 	}
 
