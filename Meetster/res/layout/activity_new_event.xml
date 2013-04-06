@@ -50,6 +50,7 @@
              android:layout_height="15dip"
              android:layout_alignLeft="@+id/categories"
              android:layout_below="@+id/categories"
+             android:contentDescription="@string/basketball"
              android:background="@drawable/college_basketball" />
         <Button
             android:id="@+id/createeventbutton"
@@ -59,5 +60,14 @@
             android:layout_marginBottom="20dp"
             android:layout_toRightOf="@+id/event_header"
             android:text="@string/create" />
+
+        <ImageButton
+            android:id="@+id/tv_icon"
+            android:layout_width="15dip"
+            android:layout_height="15dip"
+            android:layout_alignRight="@+id/textView2"
+            android:layout_alignTop="@+id/basketball"
+            android:background="@drawable/tv_icon_entertainment"
+            android:contentDescription="@string/desc" />
 
 </RelativeLayout>
