@@ -17,14 +17,14 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView1"
-            android:layout_below="@+id/textView1"
+            android:layout_alignLeft="@+id/categories"
+            android:layout_below="@+id/categories"
             android:layout_marginTop="95dp"
             android:text="@string/timeframe"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/categories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -35,7 +35,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/participant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView2"
@@ -44,6 +44,13 @@
             android:text="@string/participants"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
+         <ImageButton
+             android:id="@+id/basketball"
+             android:layout_width="15dip"
+             android:layout_height="15dip"
+             android:layout_alignLeft="@+id/categories"
+             android:layout_below="@+id/categories"
+             android:background="@drawable/college_basketball" />
         <Button
             android:id="@+id/createeventbutton"
             android:layout_width="wrap_content"
