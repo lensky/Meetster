@@ -9,5 +9,7 @@
     <string name= "timeframe">When: </string>
     <string name= "participants">With whom: </string>
     <string name="create">CreateEvent</string>
+    <string name = "desc"></string>
+    <string name = "basketball"></string>
 
 </resources>
