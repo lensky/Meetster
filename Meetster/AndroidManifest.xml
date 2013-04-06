@@ -22,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider android:name="MeetsterContentProvider" android:authorities="@string/meetster_authority"></provider>
     </application>
 
 </manifest>
