@@ -5,12 +5,13 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name= "event_header">Create new event</string>
-    <string name= "event_category">Category: </string>
+    <string name= "event_category">Choose a category: </string>
     <string name= "timeframe">When: </string>
     <string name= "participants">With whom: </string>
     <string name="create">CreateEvent</string>
     <string name = "desc"></string>
     <string name = "basketball"></string>
     <string name = "desc3"></string>
-
+    <string name = "desc2"></string>
+	<string name = "desc4"></string>
 </resources>
