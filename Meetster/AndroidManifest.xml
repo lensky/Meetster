@@ -22,6 +22,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.russia.meetster.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
+            android:name="com.russia.meetster.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="com.russia.meetster" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.russia.meetster" />
+        </activity>
+        <activity
+            android:name="com.russia.meetster.CreateEventActivity"
+            android:label="@string/title_activity_create_event" >
+        </activity>
+        <activity
+            android:name="com.russia.meetster.ConfirmationscreenActivity"
+            android:label="@string/title_activity_confirmationscreen" >
+        </activity>
     </application>
 
 </manifest>
