@@ -21,12 +21,12 @@ public class MeetsterEvent {
 	// Length 2 array: {start, end}.
 	private Date[] timeRange;
 	
-	private ArrayList<Long> inviteeIds;
+	private ArrayList<MeetsterFriend> invitees;
 	
 	public MeetsterEvent(long id, long creatorId, Location location,
 			String locationDescription, MeetsterCategory category,
 			String description, Date creationTime, Date[] timeRange,
-			ArrayList<Long> inviteeIds) {
+			ArrayList<MeetsterFriend> invitees) {
 		this.id = id;
 		this.creatorId = creatorId;
 		this.location = location;
@@ -35,15 +35,15 @@ public class MeetsterEvent {
 		this.description = description;
 		this.creationTime = creationTime;
 		this.timeRange = timeRange;
-		this.inviteeIds = inviteeIds;
+		this.invitees = invitees;
 	}
 
-	public ArrayList<Long> getInviteeIds() {
-		return inviteeIds;
+	public ArrayList<MeetsterFriend> getInvitees() {
+		return invitees;
 	}
 	
-	public void setInviteeIds(ArrayList<Long> inviteeIds) {
-		this.inviteeIds = inviteeIds;
+	public void setInvitees(ArrayList<MeetsterFriend> invitees) {
+		this.invitees = invitees;
 	}
 	
 	public long getId() {
