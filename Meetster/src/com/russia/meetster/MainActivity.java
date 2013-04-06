@@ -29,24 +29,5 @@ public class MainActivity extends Activity {
 		intent.putExtra(EXTRA_MESSAGE, message);
 	    // Do something in response to button
 	}
-	public void confirmScreen(View view) {
-		Intent intent = new Intent(this, ConfirmationscreenActivity.class);
-		EditText editText1 = (EditText) findViewById(R.id.editText1);
-		String message = editText1.getText().toString();
-		intent.putExtra(EXTRA_MESSAGE, message);
-		EditText editText2 = (EditText) findViewById(R.id.editText2);
-		String message2 = editText2.getText().toString();
-		intent.putExtra(EXTRA_MESSAGE, message2);
-		EditText editText3 = (EditText) findViewById(R.id.editText3);
-		String message3 = editText3.getText().toString();
-		intent.putExtra(EXTRA_MESSAGE, message3);
-	    // Do something in response to button
-	}
-	public void settings(View view) {
-		Intent intent = new Intent(this, SettingsActivity.class);
-		EditText editText = (EditText) findViewById(R.id.editText1);
-		String message = editText.getText().toString();
-		intent.putExtra(EXTRA_MESSAGE, message);
-	    // Do something in response to button
-	}
+
 }
