@@ -8,5 +8,6 @@
     <string name= "event_category">Category: </string>
     <string name= "timeframe">When: </string>
     <string name= "participants">With whom: </string>
+    <string name="create">CreateEvent</string>
 
 </resources>

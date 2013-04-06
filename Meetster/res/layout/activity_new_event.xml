@@ -44,4 +44,13 @@
             android:text="@string/participants"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_toRightOf="@+id/event_header"
+            android:text="@string/create" />
+
 </RelativeLayout>
