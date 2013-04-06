@@ -10,8 +10,7 @@ import android.net.Uri;
 
 abstract class YLSQLiteOpenHelper extends SQLiteOpenHelper {
 	
-	// Pass in columns and types in two separate, same-length lists
-	protected void createDB(SQLiteDatabase db, BaseTableContract contract) {
+	protected void createTable(SQLiteDatabase db, BaseTableContract contract) {
 		String SQLQuery = "create table " + contract.getTableName() + " ( ";
 		SQLQuery += contract._ID + " integer primary key autoincrement, ";
 		
@@ -30,56 +29,33 @@ abstract class YLSQLiteOpenHelper extends SQLiteOpenHelper {
 		db.execSQL(SQLQuery);
 	}
 	
-	protected BaseTableContract contract;
+	protected BaseTableContract[] contracts;
 
-	public YLSQLiteOpenHelper(Context context, BaseTableContract contract, int version) {
-		super(context, contract.getTableName(), null, version);
-		this.contract = contract;
+	public YLSQLiteOpenHelper(Context context, String dbName, int version, BaseTableContract[] contracts) {
+		super(context, dbName, null, version);
+		this.contracts = contracts;
 	}
 	
 	public void onCreate(SQLiteDatabase db) {
-		createDB(db, this.contract);
+		for (BaseTableContract contract : contracts) {
+			createTable(db, contract);
+		}
 	}
 }
 
-class EventsOpenHelper extends YLSQLiteOpenHelper {
-	private final static int VERSION = 1;
+class MeetsterDBOpenHelper extends YLSQLiteOpenHelper {
+	private static final int VERSION = 1;
 	
-	public EventsOpenHelper(Context context) {
-		super(context, MeetsterContract.Events, VERSION);
+	public MeetsterDBOpenHelper(Context context) {
+		super(context, "MeetsterDB", VERSION, new BaseTableContract[] {
+				MeetsterContract.Events,
+				MeetsterContract.Categories,
+				MeetsterContract.Friends,
+		});
 	}
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// Not upgrading as of now
-		return;
-	}
-}
-
-class FriendsOpenHelper extends YLSQLiteOpenHelper {
-	private final static int VERSION = 1;
-	
-	public FriendsOpenHelper(Context context) {
-		super(context, MeetsterContract.Friends, VERSION);
-	}
-	
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// Not upgrading as of now
-		return;
-	}
-}
-
-class CategoriesOpenHelper extends YLSQLiteOpenHelper {
-	private final static int VERSION = 1;
-	
-	public CategoriesOpenHelper(Context context) {
-		super(context, MeetsterContract.Categories, VERSION);
-	}
-	
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// Not upgrading as of now
 		return;
 	}
 }
