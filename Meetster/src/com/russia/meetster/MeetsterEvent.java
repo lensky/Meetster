@@ -1,9 +1,13 @@
 package com.russia.meetster;
 
+import java.sql.SQLXML;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.content.ContentValues;
 import android.location.Location;
+import android.sax.StartElementListener;
 
 public class MeetsterEvent {
 	private long id;
@@ -37,6 +41,27 @@ public class MeetsterEvent {
 		this.timeRange = timeRange;
 		this.invitees = invitees;
 	}
+	
+	private static String dateToSQLTimestamp(Date d) {
+		return new Timestamp(d.getTime()).toString();
+	}
+	
+	public ContentValues toValues() {
+		ContentValues vals = new ContentValues();
+		
+		vals.put(MeetsterContract.Events.CREATORID, this.creatorId);
+		vals.put(MeetsterContract.Events.CREATION_TIME, dateToSQLTimestamp(creationTime));
+		vals.put(MeetsterContract.Events.CATEGORY, this.category.getId());
+		vals.put(MeetsterContract.Events.INVITEE_IDS, this.creatorId);
+		vals.put(MeetsterContract.Events.DESCRIPTION, this.creatorId);
+		vals.put(MeetsterContract.Events.START_TIME, dateToSQLTimestamp(getStartTime()));
+		vals.put(MeetsterContract.Events.END_TIME, dateToSQLTimestamp(getEndTime()));
+		vals.put(MeetsterContract.Events.LATITUDE, getLatitude());
+		vals.put(MeetsterContract.Events.LONGITUDE, getLongitude());
+		vals.put(MeetsterContract.Events.LOCATION_DESCRIPTION, this.locationDescription);
+
+		return vals;
+	}
 
 	public ArrayList<MeetsterFriend> getInvitees() {
 		return invitees;
@@ -68,6 +93,14 @@ public class MeetsterEvent {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+	
+	public double getLatitude() {
+		return this.location.getLatitude();
+	}
+	
+	public double getLongitude() {
+		return this.location.getLongitude();
 	}
 
 	public String getLocationDescription() {
