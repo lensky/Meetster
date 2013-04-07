@@ -20,4 +20,6 @@
 	<string name = "location">Where?</string>
 	<string name="settingslink">Settings</string>
     <string name="titleofsettings"></string>
+    <string name="meetster_authority">com.russia.Meetster.provider</string>
+
 </resources>
