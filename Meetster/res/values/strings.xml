@@ -18,4 +18,6 @@
 	<string name = "specifyTime">When? </string>
 	<string name = "fittari">Create New Event</string>
 	<string name = "location">Where?</string>
+	<string name="settingslink">Settings</string>
+    <string name="titleofsettings"></string>
 </resources>
