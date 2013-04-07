@@ -7,15 +7,16 @@
     android:orientation="horizontal" >
     
         <Button
+            android:id="createeventbutton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="createevent"
-            android:text="@string/create" />
+            android:text="@string/createbutton" />
         
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="settingsbutton"
-            android:text="Settings" />
+            android:text="@string/settings" />
 
 </LinearLayout>
