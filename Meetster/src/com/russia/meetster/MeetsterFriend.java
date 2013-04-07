@@ -1,5 +1,7 @@
 package com.russia.meetster;
 
+import android.content.ContentValues;
+
 public class MeetsterFriend {
 	private long id;
 	private String firstName;
@@ -9,6 +11,15 @@ public class MeetsterFriend {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
+	}
+	
+	public ContentValues toValues() {
+		ContentValues vals = new ContentValues();
+		
+		vals.put(MeetsterContract.Friends.FIRST_NAME, this.firstName);
+		vals.put(MeetsterContract.Friends.LAST_NAME, this.lastName);
+		
+		return vals;
 	}
 	
 	public long getId() {
