@@ -1,13 +1,10 @@
 package com.russia.meetster;
 
-import java.sql.SQLXML;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
 import android.content.ContentValues;
 import android.location.Location;
-import android.sax.StartElementListener;
 
 public class MeetsterEvent extends YLSQLRow {
 	private Long id;
@@ -64,14 +61,15 @@ public class MeetsterEvent extends YLSQLRow {
 		ContentValues vals = new ContentValues();
 		
 		vals.put(MeetsterContract.Events.CREATORID, this.creatorId);
-		vals.put(MeetsterContract.Events.CREATION_TIME, dateToSQLTimestamp(creationTime));
 		vals.put(MeetsterContract.Events.CATEGORY, this.getCategoryId());
 		vals.put(MeetsterContract.Events.INVITEE_IDS, inviteesToString());
 		vals.put(MeetsterContract.Events.DESCRIPTION, this.description);
 		vals.put(MeetsterContract.Events.START_TIME, dateToSQLTimestamp(getStartTime()));
 		vals.put(MeetsterContract.Events.END_TIME, dateToSQLTimestamp(getEndTime()));
-		vals.put(MeetsterContract.Events.LATITUDE, getLatitude());
-		vals.put(MeetsterContract.Events.LONGITUDE, getLongitude());
+		if (hasLocation()) {
+			vals.put(MeetsterContract.Events.LATITUDE, getLatitude());
+			vals.put(MeetsterContract.Events.LONGITUDE, getLongitude());
+		}
 		vals.put(MeetsterContract.Events.LOCATION_DESCRIPTION, this.locationDescription);
 
 		return vals;
@@ -107,6 +105,10 @@ public class MeetsterEvent extends YLSQLRow {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+	
+	public boolean hasLocation() {
+		return (this.location != null);
 	}
 	
 	public Double getLatitude() {
