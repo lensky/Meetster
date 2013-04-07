@@ -5,15 +5,17 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name= "event_header">Create new event</string>
-    <string name= "event_category">Choose a category: </string>
-    <string name= "timeframe">When: </string>
+    <string name= "event_category">Which? </string>
+    <string name= "timeframe">When? </string>
     <string name="create">CreateEvent</string>
     <string name = "desc"></string>
     <string name = "basketball"></string>
     <string name = "desc3"></string>
     <string name = "desc2"></string>
 	<string name = "desc4"></string>
-	<string name = "titleofEvent">Enter event title: </string>
-	<string name = "particfriends">Enter participants: </string>
-	<string name = "specifyTime">When is the event: </string>
+	<string name = "titleofEvent">What? </string>
+	<string name = "particfriends">Who? </string>
+	<string name = "specifyTime">When? </string>
+	<string name = "fittari">Create New Event</string>
+	<string name = "location">Where?</string>
 </resources>

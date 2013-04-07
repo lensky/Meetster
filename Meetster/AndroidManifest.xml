@@ -10,12 +10,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/McDonalds_golden_arch"
+        android:label="@string/fittari"
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.russia.meetster.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/fittari" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
