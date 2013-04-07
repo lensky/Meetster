@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Meetster</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name= "event_header">Create new event</string>
-    <string name= "event_category">Which? </string>
-    <string name= "timeframe">When? </string>
-    <string name="create">CreateEvent</string>
     <string name = "desc"></string>
     <string name = "basketball"></string>
     <string name = "desc3"></string>
@@ -21,5 +14,23 @@
 	<string name="settingslink">Settings</string>
     <string name="titleofsettings"></string>
     <string name="meetster_authority">com.russia.Meetster.provider</string>
+    <string name="event_header">Create new event</string>
+    <string name="event_category">Category: </string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_create_event">CreateEventActivity</string>
+    <string name="title_activity_confirmationscreen">ConfirmationscreenActivity</string>
+    <string name="createbutton">CreateEvent</string>
+    <string name="settings">Settings</string>
+    <string name="app_name">Meetster</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="timeframe">When: </string>
+    <string name="participants">With whom: </string>
+    <string name="create">CreateEvent</string>
+    <string name="title_activity_main">Main</string>
+    <string name="lots_of_text">random text goes here</string>
+    <string name="starttime">Start:</string>
+    <string name="endtime">End:</string>
+    <string name="selecttimedate">Select time and Date</string>
 
 </resources>

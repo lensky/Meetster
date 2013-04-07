@@ -107,6 +107,15 @@
         android:background="@drawable/foodknife"
         android:contentDescription="@string/desc2" />
 
+        <Button
+            android:id="@+id/createeventbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_toRightOf="@+id/event_header"
+            android:text="@string/create" />
+
     <ImageButton
         android:id="@+id/briefcase"
         android:layout_width="25dip"
@@ -115,5 +124,23 @@
         android:layout_toRightOf="@+id/categories"
         android:background="@drawable/brieflycase"
         android:contentDescription="@string/desc3" />
+
+        <TimePicker
+            android:id="@+id/timePicker1"
+            android:layout_height="wrap_content"
+			android:layout_weight=".33"
+			android:layout_width="0dip"
+			android:textSize="12sp"
+            android:layout_alignTop="@+id/tv_icon"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/timedatebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/textView2"
+            android:layout_marginTop="19dp"
+            android:text="@string/selecttimedate" />
 
 </RelativeLayout>

@@ -5,11 +5,8 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuInflater;
 
-
 public class MainActivity extends Activity {
-	
-	
-
+	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,5 +20,7 @@ public class MainActivity extends Activity {
 		inflater.inflate(R.menu.game_main, menu);
 		return true;
 	}
+	/** Called when the user clicks the Send button */
+
 
 }
