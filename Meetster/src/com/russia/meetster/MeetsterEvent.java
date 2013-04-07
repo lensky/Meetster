@@ -42,14 +42,32 @@ public class MeetsterEvent extends YLSQLRow {
 		this.invitees = invitees;
 	}
 	
+	private String inviteesToString() {
+		if (this.invitees == null) {
+			return null;
+		}
+		String inviteesString = "";
+		for (int i = 0; i < this.invitees.size(); ++i) {
+			inviteesString += i;
+			if (i < this.invitees.size() - 1) {
+				inviteesString += ",";
+			}
+		}
+		return inviteesString;
+	}
+	
+	private Long getCategoryId() {
+		return (this.category == null) ? null : this.category.getId();
+	}
+	
 	public ContentValues toValues() {
 		ContentValues vals = new ContentValues();
 		
 		vals.put(MeetsterContract.Events.CREATORID, this.creatorId);
 		vals.put(MeetsterContract.Events.CREATION_TIME, dateToSQLTimestamp(creationTime));
-		vals.put(MeetsterContract.Events.CATEGORY, this.category.getId());
-		vals.put(MeetsterContract.Events.INVITEE_IDS, this.creatorId);
-		vals.put(MeetsterContract.Events.DESCRIPTION, this.creatorId);
+		vals.put(MeetsterContract.Events.CATEGORY, this.getCategoryId());
+		vals.put(MeetsterContract.Events.INVITEE_IDS, inviteesToString());
+		vals.put(MeetsterContract.Events.DESCRIPTION, this.description);
 		vals.put(MeetsterContract.Events.START_TIME, dateToSQLTimestamp(getStartTime()));
 		vals.put(MeetsterContract.Events.END_TIME, dateToSQLTimestamp(getEndTime()));
 		vals.put(MeetsterContract.Events.LATITUDE, getLatitude());
@@ -91,12 +109,12 @@ public class MeetsterEvent extends YLSQLRow {
 		this.location = location;
 	}
 	
-	public double getLatitude() {
-		return this.location.getLatitude();
+	public Double getLatitude() {
+		return (this.location == null) ? null : this.location.getLatitude();
 	}
 	
-	public double getLongitude() {
-		return this.location.getLongitude();
+	public Double getLongitude() {
+		return (this.location == null) ? null : this.location.getLongitude();
 	}
 
 	public String getLocationDescription() {
@@ -140,10 +158,10 @@ public class MeetsterEvent extends YLSQLRow {
 	}
 	
 	public Date getStartTime() {
-		return timeRange[0];
+		return (timeRange == null) ? null : timeRange[0];
 	}
 	
 	public Date getEndTime() {
-		return timeRange[1];
+		return (timeRange == null) ? null : timeRange[1];
 	}
 }
