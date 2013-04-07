@@ -5,18 +5,55 @@
 <ImageView android:id="@+id/ImageView01"
  android:layout_width="wrap_content" android:layout_height="wrap_content"
  android:layout_centerHorizontal="true" />
- 
- <ScrollView android:id="@+id/ScrollView01"
- android:layout_width="wrap_content" android:layout_below="@+id/ImageView01"
- android:layout_height="200px">
- 
- <TextView android:text="@+id/TextView01" android:id="@+id/TextView01"
- android:layout_width="wrap_content" android:layout_height="wrap_content" />
- 
- </ScrollView>
- 
- <Button android:id="@+id/Button01" android:layout_below="@id/ScrollView01"
- android:layout_width="wrap_content" android:layout_height="wrap_content"
- android:layout_centerHorizontal="true" android:text="Cancel" />
+
+ <TimePicker
+     android:id="@+id/timePicker1"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_alignParentRight="true"
+     android:layout_alignParentTop="true" />
+
+ <TimePicker
+     android:id="@+id/timePicker2"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_alignParentRight="true"
+     android:layout_below="@+id/timePicker1"
+     android:layout_marginTop="14dp" />
+
+ <TextView
+     android:id="@+id/textView1"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_alignParentLeft="true"
+     android:layout_below="@+id/ImageView01"
+     android:layout_marginLeft="16dp"
+     android:layout_marginTop="30dp"
+     android:text="@string/starttime" />
+
+ <DatePicker
+     android:id="@+id/datePicker1"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/timePicker2"
+     android:layout_centerHorizontal="true"
+     android:layout_marginTop="35dp" />
+
+ <Button
+     android:id="@+id/Button01"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_alignParentRight="true"
+     android:layout_below="@+id/datePicker1"
+     android:text="@string/cancel" />
+
+ <TextView
+     android:id="@+id/textView2"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_alignRight="@+id/textView1"
+     android:layout_alignTop="@+id/timePicker2"
+     android:layout_marginTop="53dp"
+     android:text="@string/endtime" />
  
 </RelativeLayout>
