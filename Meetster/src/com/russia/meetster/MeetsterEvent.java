@@ -9,9 +9,9 @@ import android.content.ContentValues;
 import android.location.Location;
 import android.sax.StartElementListener;
 
-public class MeetsterEvent {
-	private long id;
-	private long creatorId;
+public class MeetsterEvent extends YLSQLRow {
+	private Long id;
+	private Long creatorId;
 	
 	// We also plan to allow users to just enter a colloquial location description
 	private Location location;
@@ -27,7 +27,7 @@ public class MeetsterEvent {
 	
 	private ArrayList<MeetsterFriend> invitees;
 	
-	public MeetsterEvent(long id, long creatorId, Location location,
+	public MeetsterEvent(Long id, Long creatorId, Location location,
 			String locationDescription, MeetsterCategory category,
 			String description, Date creationTime, Date[] timeRange,
 			ArrayList<MeetsterFriend> invitees) {
@@ -40,10 +40,6 @@ public class MeetsterEvent {
 		this.creationTime = creationTime;
 		this.timeRange = timeRange;
 		this.invitees = invitees;
-	}
-	
-	private static String dateToSQLTimestamp(Date d) {
-		return new Timestamp(d.getTime()).toString();
 	}
 	
 	public ContentValues toValues() {

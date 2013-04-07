@@ -2,7 +2,7 @@ package com.russia.meetster;
 
 import android.content.ContentValues;
 
-public class MeetsterFriend {
+public class MeetsterFriend extends YLSQLRow {
 	private long id;
 	private String firstName;
 	private String lastName;
