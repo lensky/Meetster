@@ -6,7 +6,7 @@
     <string name = "desc3"></string>
     <string name = "desc2"></string>
 	<string name = "desc4"></string>
-	<string name = "titleofEvent">Event description </string>
+	<string name = "titleofEvent">What? </string>
 	<string name = "particfriends">Who? </string>
 	<string name = "specifyTime">When? </string>
 	<string name = "fittari">Create new event</string>
@@ -31,8 +31,8 @@
     <string name="lots_of_text">random text goes here</string>
     <string name="starttime">Start:</string>
     <string name="endtime">End:</string>
-    <string name="selecttimedate">Select time and date</string>
+    <string name="selecttimedate">When?</string>
     <string name = "linktext">Select from map</string>
     <string name = "silver">#C0C0C0</string>
-	<string name = "margin">15dip</string>
+	<string name = "margin">15dp</string>
 </resources>

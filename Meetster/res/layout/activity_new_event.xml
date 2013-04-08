@@ -4,138 +4,144 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.5" />
     
     <LinearLayout
-        android:layout_marginTop="25dip"
-        android:layout_marginBottom="@string/margin"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="15dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="0dp"
+        android:layout_weight="1.2" >
         
         
         <View
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_weight="1" />
 
         <ImageButton
-            android:id="@+id/misc"
-            android:layout_width="25dip"
-            android:layout_height="25dip"
+            android:id="@+id/knife"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_weight="0"
-            android:background="@drawable/misc"
-            android:contentDescription="@string/desc4" />
+            android:background="@drawable/foodknife"
+            android:contentDescription="@string/desc2" />
         
         <View
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_weight="1" />
-        
-       
 
         <ImageButton
             android:id="@+id/briefcase"
-            android:layout_width="25dip"
-            android:layout_height="25dip"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_weight="0"
             android:background="@drawable/brieflycase"
             android:contentDescription="@string/desc3" />
         
         <View
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_weight="1" />
         
         <ImageButton
             android:id="@+id/tv_icon"
-            android:layout_width="25dip"
-            android:layout_height="25dip"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_weight="0"
             android:background="@drawable/tv_icon_entertainment"
             android:contentDescription="@string/desc" />
 
         <View
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="0dp"
             android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/basketball"
-            android:layout_width="25dip"
-            android:layout_height="25dip"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_weight="0"
             android:background="@drawable/college_basketball"
             android:contentDescription="@string/basketball" />
         
         <View
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_weight="1" />
 
         <ImageButton
-            android:id="@+id/knife"
-            android:layout_width="25dip"
-            android:layout_height="25dip"
+            android:id="@+id/misc"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_weight="0"
-            android:background="@drawable/foodknife"
-            android:contentDescription="@string/desc2" />
+            android:background="@drawable/misc"
+            android:contentDescription="@string/desc4" />
+
         <View
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_weight="1" />
         
          </LinearLayout>
          
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"/>
+         
       <View
         android:id="@+id/view1"
         android:layout_width="fill_parent"
-        android:layout_height="1dip"
+        android:layout_height="1dp"
         android:background="#808080" />
 
+      <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"/>
+      
       <EditText
           android:id="@+id/titleofEvent"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@string/margin"
-          android:layout_marginBottom="@string/margin"
-          android:ems="10"
+          android:layout_height="0dp"
+          android:ems="20"
           android:hint="@string/titleofEvent"
+          android:layout_weight="1.5"
           android:inputType="text" >
 
        
       </EditText>
-
+      
+		<View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"/>
+      
       <View
           android:layout_width="fill_parent"
-          android:layout_height="1dip"
+          android:layout_height="1dp"
           android:background="#808080" />
-
-    <Button
-        android:id="@+id/timedatebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@string/margin"
-        android:layout_marginBottom="@string/margin"
-        android:text="@string/selecttimedate" />
-
-  
-
+	
     <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="#808080" />
-
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"/>
+      
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <EditText
             android:id="@+id/locationtext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@string/margin"
-            android:layout_marginTop="@string/margin"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:ems="10"
+            android:ems="20"
             android:hint="@string/location"
             android:inputType="text" >
 
@@ -145,41 +151,82 @@
         <TextView
             android:id="@+id/linktomap"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginTop="@string/margin"
-            android:layout_marginBottom="@string/margin"
+            android:ems = "20"
             android:text="@string/linktext"
             android:textColor="#0465AD" />
 
     </LinearLayout>
-
+    
+	<View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"/>
+    
     <View
         android:id="@+id/view3"
         android:layout_width="fill_parent"
-        android:layout_height="1dip"
+        android:layout_height="1dp"
         android:background="#808080" />
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"/>
+    
+    <Button
+        android:id="@+id/timedatebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:ems = "20"
+        android:text="@string/selecttimedate" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"/>
+    
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#808080" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"/>
+    
     <Button
         android:id="@+id/particfriends"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@string/margin"
-        android:layout_marginBottom="@string/margin"
-        android:ems="8"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:ems = "20"
         android:text="@string/particfriends" />
 
     <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"/>
+    
+    <View
         android:id="@+id/view2"
         android:layout_width="fill_parent"
-        android:layout_height="1dip"
+        android:layout_height="1dp"
         android:background="#808080" />
-
+	<View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"/>
+	
     <Button
-        android:layout_marginTop="@string/margin"
+        android:layout_marginTop="15dp"
         android:id="@+id/createeventbutton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="1dp"
+        android:layout_weight="1"
         android:text="@string/create" />
 
 </LinearLayout>
