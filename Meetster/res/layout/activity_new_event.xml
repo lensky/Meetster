@@ -7,26 +7,24 @@
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="0.5" />
+        android:layout_weight="1" />
     
     <LinearLayout
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="15dp"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.2" >
+        android:layout_weight="1" >
         
         
         <View
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="fill_parent"
         android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/knife"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight="0"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:background="@drawable/foodknife"
             android:contentDescription="@string/desc2" />
         
@@ -37,9 +35,9 @@
 
         <ImageButton
             android:id="@+id/briefcase"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight="0"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:background="@drawable/brieflycase"
             android:contentDescription="@string/desc3" />
         
@@ -50,41 +48,41 @@
         
         <ImageButton
             android:id="@+id/tv_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight="0"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:background="@drawable/tv_icon_entertainment"
             android:contentDescription="@string/desc" />
 
         <View
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/basketball"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight="0"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:background="@drawable/college_basketball"
             android:contentDescription="@string/basketball" />
         
         <View
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="fill_parent"
         android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/misc"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight="0"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:background="@drawable/misc"
             android:contentDescription="@string/desc4" />
 
         <View
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="fill_parent"
         android:layout_weight="1" />
         
          </LinearLayout>
@@ -92,7 +90,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="0.5"/>
+        android:layout_weight="1"/>
          
       <View
         android:id="@+id/view1"
@@ -103,7 +101,7 @@
       <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="0.9"/>
+        android:layout_weight="1"/>
       
       <EditText
           android:id="@+id/titleofEvent"
@@ -111,7 +109,7 @@
           android:layout_height="0dp"
           android:ems="20"
           android:hint="@string/titleofEvent"
-          android:layout_weight="1.5"
+          android:layout_weight="1"
           android:inputType="text" >
 
        
@@ -120,7 +118,7 @@
 		<View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="0.9"/>
+        android:layout_weight="1"/>
       
       <View
           android:layout_width="fill_parent"
@@ -130,16 +128,17 @@
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="0.9"/>
+        android:layout_weight="1"/>
       
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
 
         <EditText
             android:id="@+id/locationtext"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
             android:ems="20"
             android:hint="@string/location"
@@ -150,8 +149,8 @@
 
         <TextView
             android:id="@+id/linktomap"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
             android:ems = "20"
             android:text="@string/linktext"
@@ -175,13 +174,28 @@
         android:layout_height="0dp"
         android:layout_weight="0.9"/>
     
+    <LinearLayout
+        android:layout_width = "fill_parent"
+        android:layout_height = "0dp"
+        android:layout_weight = "1"
+        >
+    
     <Button
         android:id="@+id/timedatebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
         android:layout_weight="1"
         android:ems = "20"
         android:text="@string/selecttimedate" />
+    
+    <Button
+        android:id="@+id/timedatebutton2"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:ems = "20"
+        android:text="@string/enddatetime2" />
+    </LinearLayout>
 
     <View
         android:layout_width="0dp"
