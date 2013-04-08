@@ -1,146 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-  
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    
+    <LinearLayout
+        android:layout_marginTop="25dip"
+        android:layout_marginBottom="@string/margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        
+        
+        <View
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/misc"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:layout_weight="0"
+            android:background="@drawable/misc"
+            android:contentDescription="@string/desc4" />
+        
+        <View
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1" />
+        
+       
+
+        <ImageButton
+            android:id="@+id/briefcase"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:layout_weight="0"
+            android:background="@drawable/brieflycase"
+            android:contentDescription="@string/desc3" />
+        
+        <View
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1" />
+        
+        <ImageButton
+            android:id="@+id/tv_icon"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:layout_weight="0"
+            android:background="@drawable/tv_icon_entertainment"
+            android:contentDescription="@string/desc" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/basketball"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:layout_weight="0"
+            android:background="@drawable/college_basketball"
+            android:contentDescription="@string/basketball" />
+        
+        <View
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/knife"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:layout_weight="0"
+            android:background="@drawable/foodknife"
+            android:contentDescription="@string/desc2" />
+        <View
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1" />
+        
+         </LinearLayout>
+         
+      <View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#808080" />
+
+      <EditText
+          android:id="@+id/titleofEvent"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@string/margin"
+          android:layout_marginBottom="@string/margin"
+          android:ems="10"
+          android:hint="@string/titleofEvent"
+          android:inputType="text" >
+
+       
+      </EditText>
+
+      <View
+          android:layout_width="fill_parent"
+          android:layout_height="1dip"
+          android:background="#808080" />
+
     <Button
-        android:id="@+id/createbutton"
+        android:id="@+id/timedatebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="14dp"
-        android:layout_toRightOf="@+id/categories"
-        android:text="@string/create" />
+        android:layout_marginTop="@string/margin"
+        android:layout_marginBottom="@string/margin"
+        android:text="@string/selecttimedate" />
 
-    <EditText
-        android:id="@+id/locationtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/createbutton"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="54dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/location" />
+  
 
-    <TextView
-        android:id="@+id/timeofEvent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/locationtext"
-        android:layout_marginBottom="40dp"
-        android:layout_toLeftOf="@+id/createbutton"
-        android:text="@string/specifyTime"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#808080" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/locationtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@string/margin"
+            android:layout_marginTop="@string/margin"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/location"
+            android:inputType="text" >
+
+     
+        </EditText>
+
+        <TextView
+            android:id="@+id/linktomap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="@string/margin"
+            android:layout_marginBottom="@string/margin"
+            android:text="@string/linktext"
+            android:textColor="#0465AD" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#808080" />
 
     <Button
         android:id="@+id/particfriends"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/timeofEvent"
-        android:layout_alignLeft="@+id/timeofEvent"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="@string/margin"
+        android:layout_marginBottom="@string/margin"
         android:ems="8"
         android:text="@string/particfriends" />
 
-    <EditText
-        android:id="@+id/titleofEvent"
+    <View
+        android:id="@+id/view2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#808080" />
+
+    <Button
+        android:layout_marginTop="@string/margin"
+        android:id="@+id/createeventbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/titleofEvent" >
+        android:text="@string/create" />
 
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/categories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/titleofEvent"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="33dp"
-        android:text="@string/event_category"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <ImageButton
-        android:id="@+id/misc"
-        android:layout_width="25dip"
-        android:layout_height="25dip"
-        android:layout_alignLeft="@+id/categories"
-        android:layout_alignTop="@+id/basketball"
-        android:background="@drawable/misc"
-        android:contentDescription="@string/desc4" />
-
-    <ImageButton
-        android:id="@+id/tv_icon"
-        android:layout_width="25dip"
-        android:layout_height="25dip"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/categories"
-        android:layout_marginRight="34dp"
-        android:layout_marginTop="19dp"
-        android:background="@drawable/tv_icon_entertainment"
-        android:contentDescription="@string/desc" />
-
-    <ImageButton
-        android:id="@+id/basketball"
-        android:layout_width="25dip"
-        android:layout_height="25dip"
-        android:layout_alignTop="@+id/tv_icon"
-        android:layout_toRightOf="@+id/createbutton"
-        android:background="@drawable/college_basketball"
-        android:contentDescription="@string/basketball" />
-
-    <ImageButton
-        android:id="@+id/knife"
-        android:layout_width="25dip"
-        android:layout_height="25dip"
-        android:layout_alignTop="@+id/basketball"
-        android:layout_marginLeft="32dp"
-        android:layout_toRightOf="@+id/briefcase"
-        android:background="@drawable/foodknife"
-        android:contentDescription="@string/desc2" />
-
-        <Button
-            android:id="@+id/createeventbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
-            android:layout_toRightOf="@+id/event_header"
-            android:text="@string/create" />
-
-    <ImageButton
-        android:id="@+id/briefcase"
-        android:layout_width="25dip"
-        android:layout_height="25dip"
-        android:layout_alignTop="@+id/misc"
-        android:layout_toRightOf="@+id/categories"
-        android:background="@drawable/brieflycase"
-        android:contentDescription="@string/desc3" />
-
-        <TimePicker
-            android:id="@+id/timePicker1"
-            android:layout_height="wrap_content"
-			android:layout_weight=".33"
-			android:layout_width="0dip"
-			android:textSize="12sp"
-            android:layout_alignTop="@+id/tv_icon"
-            android:layout_centerHorizontal="true" />
-
-        <Button
-            android:id="@+id/timedatebutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/textView2"
-            android:layout_marginTop="19dp"
-            android:text="@string/selecttimedate" />
-
-</RelativeLayout>
+</LinearLayout>
