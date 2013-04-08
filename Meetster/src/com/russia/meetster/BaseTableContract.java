@@ -11,4 +11,8 @@ public abstract class BaseTableContract implements BaseColumns {
 	public Uri getUri() {
 		return Uri.withAppendedPath(Uri.parse("content://" + "com.russia.Meetster.provider"), getTableName());
 	}
+	public String[] getClassProjection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
