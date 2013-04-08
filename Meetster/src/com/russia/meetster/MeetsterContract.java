@@ -14,22 +14,19 @@ public class MeetsterContract {
 		public final static String FRIENDS = "friends";
 	}
 	
-	final static class EventsContract implements BaseTableContract {
-		public final static String CREATORID = "creatorid";
-		public final static String CREATION_TIME = "creationtime";
-		
-		public final static String CATEGORY = "category";
-		public final static String INVITEE_IDS = "inviteeids";
-		public final static String DESCRIPTION = "description";
-		
-		public final static String START_TIME = "starttime";
-		public final static String END_TIME = "endtime";
-		
-		public final static String LATITUDE = "latitude";
-		public final static String LONGITUDE = "longitude";
-		public final static String MAX_RADIUS = "maxradius";
-		public final static String LOCATION_DESCRIPTION = "locationdescription";
-		
+	final static class EventsContract extends BaseTableContract {
+		public final static String	CREATORID				= "events_creatorid";
+		public final static String	CREATION_TIME			= "events_creationtime";
+		public final static String	CATEGORY				= "events_category";
+		public final static String	INVITEE_IDS				= "events_inviteeids";
+		public final static String	DESCRIPTION				= "events_description";
+		public final static String	START_TIME				= "events_starttime";
+		public final static String	END_TIME				= "events_endtime";
+		public final static String	LATITUDE				= "events_latitude";
+		public final static String	LONGITUDE				= "events_longitude";
+		public final static String	MAX_RADIUS				= "events_maxradius";
+		public final static String	LOCATION_DESCRIPTION	= "events_locationdescription";
+				
 		public String[] getColumns() {
 			return new String[] {
 					CREATORID,
@@ -44,6 +41,23 @@ public class MeetsterContract {
 					MAX_RADIUS,
 					LOCATION_DESCRIPTION,
 			};
+		}
+		
+		public String[] getClassProjection() {
+			return new String[] {
+					_ID,
+					CREATORID,
+					CREATION_TIME,
+					CATEGORY,
+					INVITEE_IDS,
+					DESCRIPTION,
+					START_TIME,
+					END_TIME,
+					LATITUDE,
+					LONGITUDE,
+					MAX_RADIUS,
+					LOCATION_DESCRIPTION,
+			}; 
 		}
 		
 		public String[] getColumnTypes() {
@@ -74,8 +88,8 @@ public class MeetsterContract {
 		}
 	}
 	
-	final static class CategoriesContract implements BaseTableContract {
-		public final static String DESCRIPTION = "description";
+	final static class CategoriesContract extends BaseTableContract {
+		public final static String DESCRIPTION = "categories_description";
 		
 		public String[] getColumns() {
 			return new String[] {
@@ -89,6 +103,13 @@ public class MeetsterContract {
 			};
 		}
 		
+		public String[] getClassProjection() {
+			return new String[] {
+					_ID,
+					DESCRIPTION,
+			};
+		}
+		
 		public String getTableName() {
 			return TABLES.CATEGORIES;
 		}
@@ -98,12 +119,20 @@ public class MeetsterContract {
 		}
 	}
 	
-	final static class FriendsContract implements BaseTableContract {
-		public final static String FIRST_NAME = "firstname";
-		public final static String LAST_NAME = "lastname";
+	final static class FriendsContract extends BaseTableContract {
+		public final static String FIRST_NAME = "friends_firstname";
+		public final static String LAST_NAME = "friends_lastname";
 		
 		public String[] getColumns() {
 			return new String[] {
+					FIRST_NAME,
+					LAST_NAME,
+			};
+		}
+		
+		public String[] getClassProjection() {
+			return new String[] {
+					_ID,
 					FIRST_NAME,
 					LAST_NAME,
 			};

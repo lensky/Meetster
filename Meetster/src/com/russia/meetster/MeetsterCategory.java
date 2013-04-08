@@ -1,6 +1,9 @@
 package com.russia.meetster;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 
 public class MeetsterCategory extends YLSQLRow {
 	private Long id;
@@ -10,6 +13,17 @@ public class MeetsterCategory extends YLSQLRow {
 	public MeetsterCategory(String description) {
 		this.setDescription(description);
 		this.setId(null);
+	}
+	
+	public static MeetsterCategory getFromId(Context context, long id) {
+		Cursor cursor = context.getContentResolver().query(ContentUris.withAppendedId(MeetsterContract.Categories.getUri(), id), 
+				MeetsterContract.Categories.getClassProjection(), null, null, null);
+		return new MeetsterCategory(cursor);
+	}
+	
+	public MeetsterCategory(Cursor cursor) {
+		this.id = getCursorLong(cursor, MeetsterContract.Categories._ID);
+		this.description = getCursorString(cursor, MeetsterContract.Categories.DESCRIPTION);
 	}
 	
 	public long getId() {

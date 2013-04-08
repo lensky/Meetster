@@ -1,10 +1,18 @@
 package com.russia.meetster;
 
+import android.net.Uri;
 import android.provider.BaseColumns;
 
-public interface BaseTableContract extends BaseColumns {
-	public String[] getColumns();
-	public String[] getColumnTypes();
-	public String getTableName();
-	public String[] getExtraConstraints();
+public abstract class BaseTableContract implements BaseColumns {
+	public abstract String[] getColumns();
+	public abstract String[] getColumnTypes();
+	public abstract String getTableName();
+	public abstract String[] getExtraConstraints();
+	public Uri getUri() {
+		return Uri.withAppendedPath(Uri.parse("content://" + "com.russia.Meetster.provider"), getTableName());
+	}
+	public String[] getClassProjection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
