@@ -49,6 +49,8 @@ abstract class YLSQLiteOpenHelper extends SQLiteOpenHelper {
 		for (BaseTableContract contract : contracts) {
 			createTable(db, contract);
 		}
+		MeetsterEvent event1 = new MeetsterEvent(null,null,null,null,null,"Soccer",null,null,null);
+		db.insert(MeetsterContract.Events.getTableName(), null, event1.toValues());
 	}
 }
 

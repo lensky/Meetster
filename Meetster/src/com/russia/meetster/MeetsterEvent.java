@@ -1,9 +1,11 @@
 package com.russia.meetster;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.location.Location;
 
 public class MeetsterEvent extends YLSQLRow {
@@ -37,6 +39,50 @@ public class MeetsterEvent extends YLSQLRow {
 		this.creationTime = creationTime;
 		this.timeRange = timeRange;
 		this.invitees = invitees;
+	}
+	
+	public MeetsterEvent(Cursor c, String[] projection, Context context) {		
+		this.id = getCursorLong(c, MeetsterContract.Events._ID);
+		this.creatorId = getCursorLong(c, MeetsterContract.Events.CREATORID);
+				
+		Long longitude = getCursorLong(c, MeetsterContract.Events.LONGITUDE);
+		Long latitude = getCursorLong(c, MeetsterContract.Events.LATITUDE);
+		
+		if ((longitude != null) && (latitude != null)) {
+			this.location = new Location("Meetster");
+			this.location.setLatitude(latitude);
+			this.location.setLongitude(longitude);
+		} else { this.location = null; }
+		
+		this.category = null;
+		
+		try {
+			this.timeRange = new Date[] {
+					sqlTimestampStringToDate(getCursorString(c, MeetsterContract.Events.START_TIME)),
+					sqlTimestampStringToDate(getCursorString(c, MeetsterContract.Events.END_TIME)),
+			};
+		} catch (ParseException e) {
+			this.timeRange = null;
+		}
+		
+		try {
+			this.creationTime = sqlTimestampStringToDate(getCursorString(c, MeetsterContract.Events.CREATION_TIME));
+		} catch (ParseException e) { 
+			this.creationTime = null;
+		}
+		
+		String inviteeIdsString = getCursorString(c, MeetsterContract.Events.INVITEE_IDS);
+		if (inviteeIdsString != null) {
+			String[] strings = inviteeIdsString.split(",");
+			this.invitees = new ArrayList<MeetsterFriend>();
+			for (String string : strings) {
+				Long inviteeId = Long.parseLong(string);
+				this.invitees.add(MeetsterFriend.getFromId(context, inviteeId));
+			}
+		}
+		
+		this.locationDescription = getCursorString(c, MeetsterContract.Events.LOCATION_DESCRIPTION);
+		this.description = getCursorString(c, MeetsterContract.Events.DESCRIPTION);
 	}
 	
 	private String inviteesToString() {
