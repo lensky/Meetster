@@ -13,6 +13,7 @@ public class MeetsterFriend extends YLSQLRow {
 	public static MeetsterFriend getFromId(Context c, long id) {
 		Cursor cursor = c.getContentResolver().query(ContentUris.withAppendedId(MeetsterContract.Friends.getUri(), id), 
 				MeetsterContract.Friends.getClassProjection(), null, null, null);
+		cursor.moveToFirst();
 		return new MeetsterFriend(cursor);
 	}
 	

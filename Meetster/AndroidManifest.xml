@@ -11,11 +11,11 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
-        android:label="@string/fittari"
+        android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.russia.meetster.MainActivity"
-            android:label="@string/fittari" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <provider android:name="MeetsterContentProvider" android:authorities="@string/meetster_authority"></provider>
+        <activity android:name="com.russia.meetster.CreateEventActivity" android:label="@string/fittari"></activity>
     </application>
 
 </manifest>

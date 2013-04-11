@@ -86,7 +86,7 @@ public class MeetsterEvent extends YLSQLRow {
 	
 	public String formatTimeRange() {
 		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
-		DateFormat dateFormat = new SimpleDateFormat("E");
+		DateFormat dateFormat = new SimpleDateFormat("EEE");
 		Date startTime = getStartTime();
 		Date endTime = getEndTime();
 		String t = "From " + timeFormat.format(startTime) + " on " + dateFormat.format(startTime) + 

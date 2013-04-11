@@ -52,6 +52,9 @@ abstract class YLSQLiteOpenHelper extends SQLiteOpenHelper {
 		for (BaseTableContract contract : contracts) {
 			createTable(db, contract);
 		}
+		
+		// Default data
+		
 		MeetsterCategory sports = new MeetsterCategory("Sports"); // 1
 		MeetsterCategory food = new MeetsterCategory("Food"); // 2
 		MeetsterCategory entertainment = new MeetsterCategory("Entertainment"); // 3
@@ -77,10 +80,12 @@ abstract class YLSQLiteOpenHelper extends SQLiteOpenHelper {
 		MeetsterEvent soccer = new MeetsterEvent(trond, "Kresge", sports, "Soccer", new Date(), new Date());
 		MeetsterEvent dinner = new MeetsterEvent(nicolai, "Chi Phi", food, "Dinner", new Date(), new Date());
 		MeetsterEvent pset = new MeetsterEvent(michael, "W20", work, "8.03 P-Set 3", new Date(), new Date());
+		MeetsterEvent pset2 = new MeetsterEvent(yuri, "Chi Phi", work, "P-Set 3", new Date(), new Date());
 		
 		db.insert(MeetsterContract.Events.getTableName(), null, soccer.toValues());
 		db.insert(MeetsterContract.Events.getTableName(), null, dinner.toValues());
 		db.insert(MeetsterContract.Events.getTableName(), null, pset.toValues());
+		db.insert(MeetsterContract.Events.getTableName(), null, pset2.toValues());
 	}
 }
 
@@ -151,31 +156,6 @@ public class MeetsterContentProvider extends ContentProvider {
 		sqliteHelper = new MeetsterDBOpenHelper(getContext());
 		return true;
 	}
-
-	private String constructRelatedTableJoin(BaseTableContract contract1, BaseTableContract contract2, String col1, String col2) {
-		String[] contract1Cols = contract1.getClassProjection();
-		String[] contract2Cols = contract2.getColumns();
-		
-		String contract1Table = contract1.getTableName();
-		String contract2Table = contract2.getTableName();
-
-		String selectColumns = "";
-
-		for (int i = 0; i < contract1Cols.length; ++i) {
-			selectColumns += contract1Table + "." + contract1Cols[i] + ",";
-		}
-		selectColumns += contract2Table + "." + contract2Cols[0];
-		for (int i = 1; i < contract2Cols.length; ++i) {
-			selectColumns += "," + contract2Table +  "." + contract2Cols[1];
-		}
-
-		return "(SELECT " + selectColumns +
-				" FROM (" + contract1Table +  " INNER JOIN " +
-				contract2Table +
-				" ON " + contract1Table + "." + MeetsterContract.Events.CATEGORY +
-				"=" + contract2Table + "." + MeetsterContract.Categories._ID +
-				"))";
-	}
 	
 	private String constructRelatedTableTripleJoin(BaseTableContract contract1, BaseTableContract contract2, BaseTableContract contract3, String col2, String col3) {
 		String[] contract1Cols = contract1.getClassProjection();
@@ -238,7 +218,6 @@ public class MeetsterContentProvider extends ContentProvider {
 		
 		SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 		
-		String testQuery = qB.buildQuery(projection, selection, selectionArgs, null, null, null, null);
 		Cursor c = qB.query(db, projection, selection, selectionArgs, null, null, sortOrder);
 		c.setNotificationUri(getContext().getContentResolver(), uri);
 		return c;

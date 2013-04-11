@@ -18,6 +18,7 @@ public class MeetsterCategory extends YLSQLRow {
 	public static MeetsterCategory getFromId(Context context, long id) {
 		Cursor cursor = context.getContentResolver().query(ContentUris.withAppendedId(MeetsterContract.Categories.getUri(), id), 
 				MeetsterContract.Categories.getClassProjection(), null, null, null);
+		cursor.moveToFirst();
 		return new MeetsterCategory(cursor);
 	}
 	

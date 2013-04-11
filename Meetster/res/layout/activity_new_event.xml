@@ -11,74 +11,99 @@
     
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
-        
-        
-        <View
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="1" />
-
-        <ImageButton
-            android:id="@+id/knife"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/foodknife"
-            android:contentDescription="@string/desc2" />
-        
+        android:layout_height="wrap_content"
+        android:layout_weight="1.98" >
+      
         <View
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-        <ImageButton
+        <ToggleButton
             android:id="@+id/briefcase"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/brieflycase"
-            android:contentDescription="@string/desc3" />
+            android:textOn="√"
+            android:textOff=""
+            android:textSize="30dp"
+            android:textColor="#00FF00"
+            android:contentDescription="@string/desc3"
+            android:onClick="setCategory" />
+        
+                
+        <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+        <ToggleButton
+            android:id="@+id/knife"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/food_icon"
+            android:textOn="√"
+            android:textOff=""
+            android:textSize="30dp"
+            android:textColor="#00FF00"
+            android:contentDescription="@string/desc2"
+            android:onClick="setCategory" />
         
         <View
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1" />
         
-        <ImageButton
+        <ToggleButton
             android:id="@+id/tv_icon"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/tv_icon_entertainment"
-            android:contentDescription="@string/desc" />
+            android:textOn="√"
+            android:textOff=""
+            android:textSize="30dp"
+            android:textColor="#00FF00"
+            android:contentDescription="@string/desc"
+            android:onClick="setCategory" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1" />
 
-        <ImageButton
+        <ToggleButton
             android:id="@+id/basketball"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/college_basketball"
-            android:contentDescription="@string/basketball" />
+            android:textOn="√"
+            android:textOff=""
+            android:textSize="30dp"
+            android:textColor="#00FF00"
+            android:contentDescription="@string/basketball"
+            android:onClick="setCategory" />
         
         <View
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1" />
 
-        <ImageButton
+        <ToggleButton
             android:id="@+id/misc"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/misc"
-            android:contentDescription="@string/desc4" />
+            android:textOn="√"
+            android:textOff=""
+            android:textSize="30dp"
+            android:textColor="#00FF00"
+            android:contentDescription="@string/desc4"
+            android:onClick="setCategory" />
 
         <View
         android:layout_width="0dp"
@@ -106,12 +131,10 @@
       <EditText
           android:id="@+id/titleofEvent"
           android:layout_width="wrap_content"
-          android:layout_height="0dp"
+          android:layout_height="wrap_content"
           android:ems="20"
           android:hint="@string/titleofEvent"
-          android:layout_weight="1"
           android:inputType="text" >
-
        
       </EditText>
       
@@ -129,34 +152,15 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"/>
-      
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
-
+    
         <EditText
             android:id="@+id/locationtext"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="20"
             android:hint="@string/location"
             android:inputType="text" >
-
-     
         </EditText>
-
-        <TextView
-            android:id="@+id/linktomap"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:ems = "20"
-            android:text="@string/linktext"
-            android:textColor="#0465AD" />
-
-    </LinearLayout>
     
 	<View
         android:layout_width="0dp"
@@ -174,28 +178,13 @@
         android:layout_height="0dp"
         android:layout_weight="0.9"/>
     
-    <LinearLayout
-        android:layout_width = "fill_parent"
-        android:layout_height = "0dp"
-        android:layout_weight = "1"
-        >
-    
     <Button
         android:id="@+id/timedatebutton"
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:ems = "20"
-        android:text="@string/selecttimedate" />
-    
-    <Button
-        android:id="@+id/timedatebutton2"
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:ems = "20"
-        android:text="@string/enddatetime2" />
-    </LinearLayout>
+        android:text="When?"
+        android:onClick="showStartTimeDialog" />
 
     <View
         android:layout_width="0dp"
@@ -214,11 +203,11 @@
     
     <Button
         android:id="@+id/particfriends"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:ems = "20"
-        android:text="@string/particfriends" />
+        android:text="@string/particfriends"
+        android:enabled="false" />
 
     <View
         android:layout_width="0dp"
@@ -238,9 +227,10 @@
     <Button
         android:layout_marginTop="15dp"
         android:id="@+id/createeventbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/create" />
+        android:text="@string/create"
+        android:onClick="createEvent" />
 
 </LinearLayout>
