@@ -99,7 +99,7 @@ public class MeetsterEvent extends YLSQLRow {
 		return this.creator.getFirstName();
 	}
 	
-	private String inviteesToString() {
+	private String inviteeIdsToString() {
 		if (this.inviteeIds == null) {
 			return null;
 		}
@@ -122,7 +122,7 @@ public class MeetsterEvent extends YLSQLRow {
 		
 		vals.put(MeetsterContract.Events.CREATORID, this.creator.getId());
 		vals.put(MeetsterContract.Events.CATEGORY, this.getCategoryId());
-		vals.put(MeetsterContract.Events.INVITEE_IDS, inviteesToString());
+		vals.put(MeetsterContract.Events.INVITEE_IDS, inviteeIdsToString());
 		vals.put(MeetsterContract.Events.DESCRIPTION, this.description);
 		vals.put(MeetsterContract.Events.START_TIME, dateToSQLTimestamp(getStartTime()));
 		vals.put(MeetsterContract.Events.END_TIME, dateToSQLTimestamp(getEndTime()));
