@@ -1,5 +1,6 @@
 package com.russia.meetster;
 
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.ContentProvider;
@@ -14,7 +15,6 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
-import java.util.Date;
 
 abstract class YLSQLiteOpenHelper extends SQLiteOpenHelper {
 	
@@ -41,8 +41,6 @@ abstract class YLSQLiteOpenHelper extends SQLiteOpenHelper {
 	
 	protected BaseTableContract[] contracts;
 	
-	private Context currentContext;
-
 	public YLSQLiteOpenHelper(Context context, String dbName, int version, BaseTableContract[] contracts) {
 		super(context, dbName, null, version);
 		this.contracts = contracts;
@@ -54,38 +52,13 @@ abstract class YLSQLiteOpenHelper extends SQLiteOpenHelper {
 		}
 		
 		// Default data
+		db.execSQL(
+				"INSERT INTO categories (categories_description) VALUES " +
+				"('Sports'),('Food'),('Entertainment'),('Work'),('Misc');");
 		
-		MeetsterCategory sports = new MeetsterCategory("Sports"); // 1
-		MeetsterCategory food = new MeetsterCategory("Food"); // 2
-		MeetsterCategory entertainment = new MeetsterCategory("Entertainment"); // 3
-		MeetsterCategory work = new MeetsterCategory("Work"); // 4
-		MeetsterCategory misc = new MeetsterCategory("Misc"); // 5
-		
-		sports.setId(db.insert(MeetsterContract.Categories.getTableName(), null, sports.toValues()));
-		food.setId(db.insert(MeetsterContract.Categories.getTableName(), null, food.toValues()));
-		entertainment.setId(db.insert(MeetsterContract.Categories.getTableName(), null, entertainment.toValues()));
-		work.setId(db.insert(MeetsterContract.Categories.getTableName(), null, work.toValues()));
-		misc.setId(db.insert(MeetsterContract.Categories.getTableName(), null, misc.toValues()));
-		
-		MeetsterFriend yuri = new MeetsterFriend(1, "Yuri", "Lensky");
-		MeetsterFriend trond = new MeetsterFriend(2, "Trond", "Andersen");
-		MeetsterFriend nicolai = new MeetsterFriend(3, "Nicolai", "Ludvigsen");
-		MeetsterFriend michael = new MeetsterFriend(4, "Michael", "Rodriguez");
-		
-		db.insert(MeetsterContract.Friends.getTableName(), null, yuri.toValues());
-		db.insert(MeetsterContract.Friends.getTableName(), null, trond.toValues());
-		db.insert(MeetsterContract.Friends.getTableName(), null, nicolai.toValues());
-		db.insert(MeetsterContract.Friends.getTableName(), null, michael.toValues());
-		
-		MeetsterEvent soccer = new MeetsterEvent(trond, "Kresge", sports, "Soccer", new Date(), new Date());
-		MeetsterEvent dinner = new MeetsterEvent(nicolai, "Chi Phi", food, "Dinner", new Date(), new Date());
-		MeetsterEvent pset = new MeetsterEvent(michael, "W20", work, "8.03 P-Set 3", new Date(), new Date());
-		MeetsterEvent pset2 = new MeetsterEvent(yuri, "Chi Phi", work, "P-Set 3", new Date(), new Date());
-		
-		db.insert(MeetsterContract.Events.getTableName(), null, soccer.toValues());
-		db.insert(MeetsterContract.Events.getTableName(), null, dinner.toValues());
-		db.insert(MeetsterContract.Events.getTableName(), null, pset.toValues());
-		db.insert(MeetsterContract.Events.getTableName(), null, pset2.toValues());
+		db.execSQL(
+				"INSERT INTO friends (friends_firstname,friends_lastname) VALUES " +
+				"('Yuri','Lensky'),('Trond','Anderson'),('Nicolai','Ludvigsen'),('Michael','Rodriguez');");
 	}
 }
 
@@ -116,11 +89,11 @@ public class MeetsterContentProvider extends ContentProvider {
 		return (TextUtils.isEmpty(where) ? "" : where + " and ") + BaseColumns._ID + "=" + ContentUris.parseId(uri);
 	}
 	
-	private Uri createTableURI(String tableName) {
+	private static Uri createTableURI(String tableName) {
 		return Uri.withAppendedPath(Uri.parse("content://" + AUTHORITY), tableName);
 	}
 	
-	private Uri createTableIdURI(String tableName, long id) {
+	private static Uri createTableIdURI(String tableName, long id) {
 		return ContentUris.withAppendedId(createTableURI(tableName), id);
 	}
 
@@ -131,65 +104,39 @@ public class MeetsterContentProvider extends ContentProvider {
 	private static final int CATEGORY_ID = 4;
 	private static final int FRIEND = 5;
 	private static final int FRIEND_ID = 6;
+	private static final int MATCHING_USER_EVENTS = 7;
+	private static final int USERS_EVENTS = 8;
+	private static final int MATCHING_EVENT_EVENTS = 9;
 
-	private final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+	private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 	
-	private void addMeetsterURI(String authority, String path, int tableCode, int tableIdCode) {
+	private static void addMeetsterURI(String authority, String path, int tableCode, int tableIdCode) {
 		uriMatcher.addURI(authority, path, tableCode);
 		uriMatcher.addURI(authority, path + "/#", tableIdCode);
 	}
 	
 	// Non-static variables initialized in onCreate
-	private String AUTHORITY;
-	private SQLiteOpenHelper sqliteHelper;
-
-	@Override
-	public boolean onCreate() {
-		// Defining the path structure
-		AUTHORITY = getContext().getString(R.string.meetster_authority);
-
+	public static final String AUTHORITY = "com.russia.Meetster.provider";
+	
+	static {
 		addMeetsterURI(AUTHORITY, MeetsterContract.Events.getTableName(), EVENT, EVENT_ID);
 		addMeetsterURI(AUTHORITY, MeetsterContract.Friends.getTableName(), FRIEND, FRIEND_ID);
 		addMeetsterURI(AUTHORITY, MeetsterContract.Categories.getTableName(), CATEGORY, CATEGORY_ID);
 		
+		uriMatcher.addURI(AUTHORITY, MeetsterContract.Events.getTableName() + "/users/#", USERS_EVENTS);
+		uriMatcher.addURI(AUTHORITY, MeetsterContract.Events.getTableName() + "/matching_user/#", MATCHING_USER_EVENTS);
+		uriMatcher.addURI(AUTHORITY, MeetsterContract.Events.getTableName() + "/matching_event/#", MATCHING_EVENT_EVENTS);
+	}
+	
+	private SQLiteOpenHelper sqliteHelper;
+
+	@Override
+	public boolean onCreate() {
 		// Setting non-static variables
 		sqliteHelper = new MeetsterDBOpenHelper(getContext());
 		return true;
 	}
 	
-	private String constructRelatedTableTripleJoin(BaseTableContract contract1, BaseTableContract contract2, BaseTableContract contract3, String col2, String col3) {
-		String[] contract1Cols = contract1.getClassProjection();
-		String[] contract2Cols = contract2.getColumns();
-		String[] contract3Cols = contract3.getColumns();
-		
-		String contract1Table = contract1.getTableName();
-		String contract2Table = contract2.getTableName();
-		String contract3Table = contract3.getTableName();
-
-		String selectColumns = "";
-
-		for (int i = 0; i < contract1Cols.length; ++i) {
-			selectColumns += contract1Table + "." + contract1Cols[i] + ",";
-		}
-		selectColumns += contract2Table + "." + contract2Cols[0];
-		for (int i = 1; i < contract2Cols.length; ++i) {
-			selectColumns += "," + contract2Table +  "." + contract2Cols[i];
-		}
-		for (int i = 0; i < contract3Cols.length; ++i) {
-			selectColumns += "," + contract3Table +  "." + contract3Cols[i];
-		}
-
-
-		return "(SELECT " + selectColumns +
-				" FROM (" + contract1Table +  " INNER JOIN " + contract2Table +
-				" ON " + contract1Table + "." + col2 +
-				"=" + contract2Table + "." + contract2._ID +
-				" INNER JOIN " + contract3Table + " ON " +
-				contract1Table + "." + col3 + 
-				"=" + contract3Table + "." + contract3._ID
-				+ "))";
-	}
-
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
@@ -197,13 +144,37 @@ public class MeetsterContentProvider extends ContentProvider {
 		
 		switch (uriMatcher.match(uri)) {
 		case EVENT:
-			qB.setTables(constructRelatedTableTripleJoin(MeetsterContract.Events, MeetsterContract.Categories, MeetsterContract.Friends,
-					MeetsterContract.Events.CATEGORY, MeetsterContract.Events.CREATORID));
+			qB.setTables(MeetsterContract.Events.getTableName());
 			break;
 		case EVENT_ID:
-			qB.setTables(constructRelatedTableTripleJoin(MeetsterContract.Events, MeetsterContract.Categories, MeetsterContract.Friends,
-					MeetsterContract.Events.CATEGORY, MeetsterContract.Events.CREATORID));
+			qB.setTables(MeetsterContract.Events.getTableName());
 			qB.appendWhere(BaseColumns._ID + "=" + ContentUris.parseId(uri));
+			break;
+		case MATCHING_USER_EVENTS:
+			String template = 
+					"(select {mid}," + YLUtils.join(",", MeetsterContract.Events.getClassProjection()) + " from " +
+					"((select {id} as {mid}, {category} as mcategory, {starttime} as mstarttime, {endtime} as mendtime from {eventstable} where {creatorid} = {userid}) " +
+					"inner join " +
+					"(select * from {eventstable} where {creatorid} != {userid}) " +
+					"on " +
+					"({category} = mcategory) and " +
+					"(datetime({starttime}) <= datetime(mendtime)) and " +
+					"(datetime({endtime}) >= datetime(mstarttime))))";
+			
+			HashMap<String,String> hMap = new HashMap<String,String>();
+			
+			hMap.put("mid", MeetsterContract.Events.MATCHINGID);
+			hMap.put("userid", String.valueOf(ContentUris.parseId(uri)));
+			hMap.put("id", MeetsterContract.Events._ID);
+			hMap.put("category", MeetsterContract.Events.CATEGORY);
+			hMap.put("starttime", MeetsterContract.Events.START_TIME);
+			hMap.put("endtime", MeetsterContract.Events.END_TIME);
+			hMap.put("eventstable", MeetsterContract.Events.getTableName());
+			hMap.put("creatorid", MeetsterContract.Events.CREATORID);
+			
+			qB.setTables(YLUtils.fillTemplate(template, hMap));
+			break;
+		case MATCHING_EVENT_EVENTS:
 			break;
 		case UriMatcher.NO_MATCH:
 			throw new IllegalArgumentException("Invalid URI for Meetster query: " + uri);

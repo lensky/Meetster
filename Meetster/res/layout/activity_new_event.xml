@@ -3,234 +3,204 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-    
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.98" >
-      
-        <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
 
-        <ToggleButton
-            android:id="@+id/briefcase"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/brieflycase"
-            android:textOn="√"
-            android:textOff=""
-            android:textSize="30dp"
-            android:textColor="#00FF00"
-            android:contentDescription="@string/desc3"
-            android:onClick="setCategory" />
-        
-                
-        <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-        <ToggleButton
-            android:id="@+id/knife"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/food_icon"
-            android:textOn="√"
-            android:textOff=""
-            android:textSize="30dp"
-            android:textColor="#00FF00"
-            android:contentDescription="@string/desc2"
-            android:onClick="setCategory" />
-        
-        <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-        
-        <ToggleButton
-            android:id="@+id/tv_icon"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/tv_icon_entertainment"
-            android:textOn="√"
-            android:textOff=""
-            android:textSize="30dp"
-            android:textColor="#00FF00"
-            android:contentDescription="@string/desc"
-            android:onClick="setCategory" />
+    <RadioGroup
+        android:id="@+id/radioGroupCategory"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
 
         <View
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="1dp"
             android:layout_weight="1" />
 
-        <ToggleButton
-            android:id="@+id/basketball"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/college_basketball"
-            android:textOn="√"
-            android:textOff=""
-            android:textSize="30dp"
-            android:textColor="#00FF00"
-            android:contentDescription="@string/basketball"
-            android:onClick="setCategory" />
-        
-        <View
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="1" />
-
-        <ToggleButton
-            android:id="@+id/misc"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@drawable/misc"
-            android:textOn="√"
-            android:textOff=""
-            android:textSize="30dp"
-            android:textColor="#00FF00"
-            android:contentDescription="@string/desc4"
-            android:onClick="setCategory" />
+        <RadioButton
+            android:id="@+id/radioButtonWork"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/brieflycase" />
 
         <View
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="1" />
-        
-         </LinearLayout>
-         
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:id="@+id/radioButtonSports"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/college_basketball" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:id="@+id/radioButtonFood"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/food_icon" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:id="@+id/radioButtonEntertainment"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/tv_icon_entertainment" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:id="@+id/radioButtonMisc"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/misc" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+    </RadioGroup>
+
     <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-         
-      <View
-        android:id="@+id/view1"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="#808080" />
 
-      <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-      
-      <EditText
-          android:id="@+id/titleofEvent"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:ems="20"
-          android:hint="@string/titleofEvent"
-          android:inputType="text" >
-       
-      </EditText>
-      
-		<View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-      
-      <View
-          android:layout_width="fill_parent"
-          android:layout_height="1dp"
-          android:background="#808080" />
-	
+    <EditText
+        android:id="@+id/editTextEventDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:ems="20"
+        android:hint="@string/titleofEvent"
+        android:inputType="text" />
+
     <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-    
-        <EditText
-            android:id="@+id/locationtext"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/location"
-            android:inputType="text" >
-        </EditText>
-    
-	<View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="0.9"/>
-    
-    <View
-        android:id="@+id/view3"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="#808080" />
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="0.9"/>
-    
-    <Button
-        android:id="@+id/timedatebutton"
+    <EditText
+        android:id="@+id/editTextLocationDescription"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="When?"
-        android:onClick="showStartTimeDialog" />
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:hint="@string/location"
+        android:inputType="text" />
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="0.9"/>
-    
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="#808080" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="When?" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="From" />
+
+            <Button
+                android:id="@+id/editTextStartTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@android:style/Widget.DeviceDefault.Light.Spinner" >
+            </Button>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="on" />
+
+            <Button
+                android:id="@+id/editTextStartDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@android:style/Widget.DeviceDefault.Light.Spinner" >
+            </Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Until" />
+
+            <Button
+                android:id="@+id/editTextEndTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@android:style/Widget.DeviceDefault.Light.Spinner" >
+            </Button>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="on" />
+
+            <Button
+                android:id="@+id/editTextEndDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@android:style/Widget.DeviceDefault.Light.Spinner" >
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+
     <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="0.9"/>
-    
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#808080" />
+
     <Button
         android:id="@+id/particfriends"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/particfriends"
-        android:enabled="false" />
+        android:enabled="true"
+        android:text="@string/particfriends" />
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="0.9"/>
-    
     <View
         android:id="@+id/view2"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="#808080" />
-	<View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="0.9"/>
-	
+
     <Button
-        android:layout_marginTop="15dp"
         android:id="@+id/createeventbutton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/create"
-        android:onClick="createEvent" />
+        android:layout_marginTop="5dp"
+        android:text="@string/create" />
 
 </LinearLayout>

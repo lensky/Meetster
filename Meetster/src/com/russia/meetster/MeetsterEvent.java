@@ -5,14 +5,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.location.Location;
 
 public class MeetsterEvent extends YLSQLRow {
+	
+	private Context mContext;
+	
 	private Long id;
 	
+	private Long creatorId;
 	private MeetsterFriend creator;
 	
 	// We also plan to allow users to just enter a colloquial location description
@@ -20,6 +26,8 @@ public class MeetsterEvent extends YLSQLRow {
 	private String locationDescription;
 	
 	private MeetsterCategory category;
+	private Long categoryId;
+	
 	private String description;
 	
 	private Date creationTime;
@@ -27,23 +35,24 @@ public class MeetsterEvent extends YLSQLRow {
 	// Length 2 array: {start, end}.
 	private Date[] timeRange;
 	
-	private ArrayList<Long> inviteeIds;
+	private List<Long> inviteeIds;
 	
-	// NOTE: Get rid of this one!!!!
-	public MeetsterEvent(MeetsterFriend creator, String locationDescription, MeetsterCategory category,
-			String description, Date startTime, Date endTime) {
-		this.creator = creator;
+	public MeetsterEvent(Context c, long creatorId, String locationDescription, long categoryId,
+			String description, Date startTime, Date endTime, List<Long> inviteeIds) {
+		this.mContext = c;
+		this.setCreator(creatorId);
 		this.locationDescription = locationDescription;
-		this.category = category;
+		this.setCategory(categoryId);
 		this.description = description;
 		this.timeRange = new Date[] { startTime, endTime };
+		this.inviteeIds = inviteeIds;
 	}
 	
-	public MeetsterEvent(Cursor c) {		
+	public MeetsterEvent(Context context, Cursor c) {		
+		this.mContext = context;
+		
 		this.id = getCursorLong(c, MeetsterContract.Events._ID);
-		this.creator = new MeetsterFriend(getCursorLong(c, MeetsterContract.Events.CREATORID),
-				getCursorString(c, MeetsterContract.Friends.FIRST_NAME),
-				getCursorString(c, MeetsterContract.Friends.LAST_NAME));
+		this.creatorId = getCursorLong(c, MeetsterContract.Events.CREATORID);
 				
 		Long longitude = getCursorLong(c, MeetsterContract.Events.LONGITUDE);
 		Long latitude = getCursorLong(c, MeetsterContract.Events.LATITUDE);
@@ -54,7 +63,7 @@ public class MeetsterEvent extends YLSQLRow {
 			this.location.setLongitude(longitude);
 		} else { this.location = null; }
 		
-		this.category = new MeetsterCategory(c);
+		this.categoryId = getCursorLong(c, MeetsterContract.Events.CATEGORY);
 		
 		try {
 			this.timeRange = new Date[] {
@@ -84,6 +93,52 @@ public class MeetsterEvent extends YLSQLRow {
 		this.description = getCursorString(c, MeetsterContract.Events.DESCRIPTION);
 	}
 	
+	public void setCreator(MeetsterFriend creator) {
+		this.creatorId = creator.getId();
+		this.creator = creator;
+	}
+
+	public void setCreator(Long creatorId) {
+		if (creatorId != this.creatorId) {
+			this.creatorId = creatorId;
+			this.creator = null;
+		}
+	}
+
+	public MeetsterFriend getCreator() {
+		if (this.creator == null) {
+			this.creator = MeetsterFriend.getFromId(mContext, this.creatorId);
+		}
+		return this.creator;
+	}
+
+	public long getCreatorId() {
+		return this.getCreator().getId();
+	}
+
+	public void setCategory(MeetsterCategory category) {
+		this.category = category;
+		this.categoryId = category.getId();
+	}
+
+	public void setCategory(Long categoryId) {
+		if (categoryId != this.categoryId) {
+			this.categoryId = categoryId;
+			this.category = null;
+		}
+	}
+
+	public Long getCategoryId() {
+		return this.getCategory().getId();
+	}
+
+	public MeetsterCategory getCategory() {
+		if (this.category == null) {
+			this.category = MeetsterCategory.getFromId(mContext, this.categoryId);
+		}
+		return this.category;
+	}
+
 	public String formatTimeRange() {
 		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 		DateFormat dateFormat = new SimpleDateFormat("EEE");
@@ -96,31 +151,20 @@ public class MeetsterEvent extends YLSQLRow {
 	}
 	
 	public String formatCreator() {
-		return this.creator.getFirstName();
+		return this.getCreator().getFirstName();
 	}
 	
 	private String inviteeIdsToString() {
-		if (this.inviteeIds == null) {
+		if (this.inviteeIds == null)
 			return null;
-		}
-		String inviteesString = "";
-		for (int i = 0; i < this.inviteeIds.size(); ++i) {
-			inviteesString += this.inviteeIds.get(i);
-			if (i < this.inviteeIds.size() - 1) {
-				inviteesString += ",";
-			}
-		}
-		return inviteesString;
-	}
-	
-	private Long getCategoryId() {
-		return this.category.getId();
+		else
+			return YLUtils.join(",", inviteeIds);
 	}
 	
 	public ContentValues toValues() {
 		ContentValues vals = new ContentValues();
 		
-		vals.put(MeetsterContract.Events.CREATORID, this.creator.getId());
+		vals.put(MeetsterContract.Events.CREATORID, this.getCreatorId());
 		vals.put(MeetsterContract.Events.CATEGORY, this.getCategoryId());
 		vals.put(MeetsterContract.Events.INVITEE_IDS, inviteeIdsToString());
 		vals.put(MeetsterContract.Events.DESCRIPTION, this.description);
@@ -135,10 +179,10 @@ public class MeetsterEvent extends YLSQLRow {
 		return vals;
 	}
 
-	public ArrayList<MeetsterFriend> getInvitees(Context context) {
+	public ArrayList<MeetsterFriend> getInvitees() {
 		ArrayList<MeetsterFriend> invitees = new ArrayList<MeetsterFriend>();
 		for (Long inviteeId : this.inviteeIds) {
-			invitees.add(MeetsterFriend.getFromId(context, inviteeId));
+			invitees.add(MeetsterFriend.getFromId(mContext, inviteeId));
 		}
 		return invitees;
 	}
@@ -149,14 +193,6 @@ public class MeetsterEvent extends YLSQLRow {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public long getCreatorId() {
-		return creator.getId();
-	}
-	
-	public MeetsterFriend getCreator(Context c) {
-		return this.creator;
 	}
 
 	public Location getLocation() {
@@ -185,10 +221,6 @@ public class MeetsterEvent extends YLSQLRow {
 
 	public void setLocationDescription(String locationDescription) {
 		this.locationDescription = locationDescription;
-	}
-
-	public MeetsterCategory getCategory(Context context) {
-		return this.category;
 	}
 
 	public String getDescription() {

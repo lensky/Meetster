@@ -1,5 +1,7 @@
 package com.russia.meetster;
 
+import android.content.ContentUris;
+import android.net.Uri;
 import android.provider.BaseColumns;
 
 public class MeetsterContract {
@@ -26,6 +28,7 @@ public class MeetsterContract {
 		public final static String	LONGITUDE				= "events_longitude";
 		public final static String	MAX_RADIUS				= "events_maxradius";
 		public final static String	LOCATION_DESCRIPTION	= "events_locationdescription";
+		public final static String  MATCHINGID  	        = "m_id";
 				
 		public String[] getColumns() {
 			return new String[] {
@@ -85,6 +88,10 @@ public class MeetsterContract {
 		
 		public String getTableName() {
 			return TABLES.EVENTS;
+		}
+		
+		public Uri getMatchingUserURI(Long id) {
+			return ContentUris.withAppendedId(Uri.withAppendedPath(this.getUri(), "matching_user"), id);
 		}
 	}
 	

@@ -9,7 +9,7 @@ public abstract class BaseTableContract implements BaseColumns {
 	public abstract String getTableName();
 	public abstract String[] getExtraConstraints();
 	public Uri getUri() {
-		return Uri.withAppendedPath(Uri.parse("content://" + "com.russia.Meetster.provider"), getTableName());
+		return Uri.withAppendedPath(Uri.parse("content://" + MeetsterContentProvider.AUTHORITY), getTableName());
 	}
 	public String[] getClassProjection() {
 		// TODO Auto-generated method stub

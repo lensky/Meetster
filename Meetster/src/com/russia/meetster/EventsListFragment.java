@@ -1,13 +1,8 @@
 package com.russia.meetster;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.ListFragment;
 import android.app.LoaderManager;
@@ -23,6 +18,31 @@ public class EventsListFragment extends ListFragment {
 	
 	private Context mContext;
 	
+	// Some useful default bundles
+	public static Bundle DEFAULT_BUNDLE(Context c) {
+		return new Bundle();
+	}
+	
+	public static Bundle MY_EVENTS_BUNDLE(Context c) {
+		Bundle b = new Bundle();
+		b.putString("selection", MeetsterContract.Events.CREATORID + "=" + ((MeetsterApplication) c.getApplicationContext()).getCurrentUserId());
+		
+		return b;
+	}
+	
+	public static Bundle INVITED_BUNDLE(Context c) {
+		Bundle b = new Bundle();
+		b.putString("selection", MeetsterContract.Events.CREATORID + "!=" + ((MeetsterApplication) c.getApplicationContext()).getCurrentUserId());
+		
+		return b;
+	}
+	
+	public static Bundle MATCHING_BUNDLE(Context c) {
+		Bundle b = new Bundle();
+		b.putParcelable("uri", MeetsterContract.Events.getMatchingUserURI(((MeetsterApplication) c.getApplicationContext()).getCurrentUserId()));
+		return b;
+	}
+	
 	class EventDisplayCursorAdapter extends CursorAdapter {
 
 		public EventDisplayCursorAdapter(Context context, Cursor c, int flags) {
@@ -36,24 +56,12 @@ public class EventsListFragment extends ListFragment {
 			TextView creator = (TextView) view.findViewById(R.id.creatorTextView);
 			TextView locationTextView = (TextView) view.findViewById(R.id.locationTextView);
 			
-			MeetsterEvent event = new MeetsterEvent(cursor);
+			MeetsterEvent event = new MeetsterEvent(mContext, cursor);
 			
 			description.setText(event.getDescription());
 			timeRange.setText(event.formatTimeRange());
 			creator.setText(event.formatCreator());
 			locationTextView.setText(event.getLocationDescription());
-			
-			// De-emphasize entry if created by self
-			if (event.getCreatorId() == ((MeetsterApplication) context.getApplicationContext()).getCurrentUserId()) {
-				description.setTypeface(null, Typeface.ITALIC);
-				timeRange.setTypeface(null, Typeface.ITALIC);
-				creator.setTypeface(null, Typeface.ITALIC);
-				locationTextView.setTypeface(null, Typeface.ITALIC);
-				description.setTextColor(Color.LTGRAY);
-				timeRange.setTextColor(Color.LTGRAY);
-				creator.setTextColor(Color.LTGRAY);
-				locationTextView.setTextColor(Color.LTGRAY);
-			}
 		}
 
 		@Override
@@ -65,49 +73,26 @@ public class EventsListFragment extends ListFragment {
 		
 	}
 	
-	class EventLoaderManager implements LoaderManager.LoaderCallbacks<Cursor> {
-		
-		private CursorAdapter mCursorAdapter;
-		
-		public EventLoaderManager(CursorAdapter ca) {
-			mCursorAdapter = ca;
-		}
-
-		@Override
-		public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
-			List<String> projection = new ArrayList<String>(Arrays.asList(MeetsterContract.Events.getClassProjection()));
-			List<String> friendsColumns = new ArrayList<String>(Arrays.asList(MeetsterContract.Friends.getColumns()));
-			List<String> categoriesColumns = new ArrayList<String>(Arrays.asList(MeetsterContract.Categories.getColumns()));
-			projection.addAll(friendsColumns);
-			projection.addAll(categoriesColumns);
-			String[] projectionString = projection.toArray(new String[0]);
-			return new CursorLoader(mContext, MeetsterContract.Events.getUri(), projectionString, null, null, null);
-		}
-
-		@Override
-		public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-			mCursorAdapter.swapCursor(cursor);
-		}
-
-		@Override
-		public void onLoaderReset(Loader<Cursor> loader) {
-			mCursorAdapter.swapCursor(null);
-		}
-		
-	}
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		String selection = this.getArguments().getString("selection");
+		String[] selectionArgs = this.getArguments().getStringArray("selectionArgs");
+		Uri uri = (Uri) this.getArguments().getParcelable("uri");
+		if (uri == null)
+			uri = MeetsterContract.Events.getUri();
+		
 		mContext = this.getActivity();
+		
 		EventDisplayCursorAdapter eventsCursorAdapter = 
 				new EventDisplayCursorAdapter(mContext, null, 0);
 		
 		// Initialize the content loader
 		this.getLoaderManager().initLoader(0, null, 
-				new EventLoaderManager(eventsCursorAdapter));
-		
+				new MeetsterLoaderManager(mContext, eventsCursorAdapter, uri, MeetsterContract.Events.getClassProjection(), 
+						selection, selectionArgs, "datetime(" + MeetsterContract.Events.START_TIME + ")"));
+				
 		this.setListAdapter(eventsCursorAdapter);
 	}
 }

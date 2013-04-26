@@ -21,10 +21,12 @@ public class MainActivity extends Activity {
 		private Fragment mFragment;
 		private Class<T> mFragmentClass;
 		private Context mContext;
+		private Bundle mBundle;
 		
-		public TabListener(Class<T> fc, Context c) {
+		public TabListener(Class<T> fc, Bundle b, Context c) {
 			mFragmentClass = fc;
 			mContext = c;
+			mBundle = b;
 		}
 
 		@Override
@@ -35,7 +37,7 @@ public class MainActivity extends Activity {
 		@Override
 		public void onTabSelected(Tab tab, FragmentTransaction ft) {
 			if (mFragment == null) {
-				mFragment = Fragment.instantiate(mContext, mFragmentClass.getName());
+				mFragment = Fragment.instantiate(mContext, mFragmentClass.getName(), mBundle);
 				ft.add(android.R.id.content, mFragment);
 			} else {
 				ft.attach(mFragment);
@@ -50,13 +52,13 @@ public class MainActivity extends Activity {
 		
 	}
 	
-	private <T extends Fragment> Tab addTab(Class<T> fragmentClass, String text) {
+	private <T extends Fragment> Tab addTab(Class<T> fragmentClass, Bundle b, String text) {
 		if (mActionBar == null) {
 			mActionBar = getActionBar();
 		}
 		
 		Tab tab = mActionBar.newTab().setText(text);
-		tab.setTabListener(new TabListener<T>(fragmentClass, this));
+		tab.setTabListener(new TabListener<T>(fragmentClass, b, this));
 		
 		mActionBar.addTab(tab);
 		
@@ -70,10 +72,10 @@ public class MainActivity extends Activity {
 		mActionBar = getActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
-		addTab(EventsListFragment.class, "Matching");
-		addTab(EventsListFragment.class, "Invited");
-		addTab(EventsListFragment.class, "Mine");
-		addTab(EventsListFragment.class, "All");
+		addTab(EventsListFragment.class, EventsListFragment.MATCHING_BUNDLE(this), "Matching");
+		addTab(EventsListFragment.class, EventsListFragment.INVITED_BUNDLE(this), "Invited");
+		addTab(EventsListFragment.class, EventsListFragment.MY_EVENTS_BUNDLE(this), "Mine");
+		addTab(EventsListFragment.class, EventsListFragment.DEFAULT_BUNDLE(this), "All");
 	}
 
 	@Override

@@ -13,7 +13,6 @@
 	<string name = "location">Where?</string>
 	<string name="settingslink">Settings</string>
     <string name="titleofsettings"></string>
-    <string name="meetster_authority">com.russia.Meetster.provider</string>
     <string name="event_header">Create new event</string>
     <string name="event_category">Which? </string>
     <string name="title_activity_settings">SettingsActivity</string>
