@@ -1,4 +1,9 @@
-package com.russia.meetster;
+package com.russia.meetster.activities;
+
+import com.russia.meetster.R;
+import com.russia.meetster.R.id;
+import com.russia.meetster.R.menu;
+import com.russia.meetster.fragments.EventsListFragment;
 
 import android.app.Activity;
 import android.content.Context;

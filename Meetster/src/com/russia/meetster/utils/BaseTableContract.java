@@ -1,4 +1,6 @@
-package com.russia.meetster;
+package com.russia.meetster.utils;
+
+import com.russia.meetster.data.MeetsterContentProvider;
 
 import android.net.Uri;
 import android.provider.BaseColumns;

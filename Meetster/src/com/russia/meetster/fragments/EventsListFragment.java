@@ -1,4 +1,12 @@
-package com.russia.meetster;
+package com.russia.meetster.fragments;
+
+import com.russia.meetster.MeetsterApplication;
+import com.russia.meetster.MeetsterLoaderManager;
+import com.russia.meetster.R;
+import com.russia.meetster.R.id;
+import com.russia.meetster.R.layout;
+import com.russia.meetster.data.MeetsterContract;
+import com.russia.meetster.data.MeetsterEvent;
 
 import android.content.Context;
 import android.database.Cursor;

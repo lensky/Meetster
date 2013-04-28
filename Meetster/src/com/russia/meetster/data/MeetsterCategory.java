@@ -1,4 +1,6 @@
-package com.russia.meetster;
+package com.russia.meetster.data;
+
+import com.russia.meetster.utils.YLSQLRow;
 
 import android.content.ContentUris;
 import android.content.ContentValues;

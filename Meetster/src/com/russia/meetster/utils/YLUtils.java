@@ -1,4 +1,4 @@
-package com.russia.meetster;
+package com.russia.meetster.utils;
 
 import java.util.Arrays;
 import java.util.HashMap;

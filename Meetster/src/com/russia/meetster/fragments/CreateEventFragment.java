@@ -1,4 +1,4 @@
-package com.russia.meetster;
+package com.russia.meetster.fragments;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -6,8 +6,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.russia.meetster.DatePickerFragment.DatePickerListener;
-import com.russia.meetster.TimePickerFragment.TimePickerListener;
+import com.russia.meetster.MeetsterApplication;
+import com.russia.meetster.R;
+import com.russia.meetster.R.id;
+import com.russia.meetster.R.layout;
+import com.russia.meetster.data.MeetsterContract;
+import com.russia.meetster.data.MeetsterEvent;
+import com.russia.meetster.fragments.DatePickerFragment.DatePickerListener;
+import com.russia.meetster.fragments.TimePickerFragment.TimePickerListener;
 
 import android.app.Activity;
 import android.app.DialogFragment;

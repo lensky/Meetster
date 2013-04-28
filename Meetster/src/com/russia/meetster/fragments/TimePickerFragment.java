@@ -1,4 +1,4 @@
-package com.russia.meetster;
+package com.russia.meetster.fragments;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -20,7 +20,7 @@ public class TimePickerFragment extends DialogFragment implements
 		public void onTimePicked(int timePickerId, int hourOfDay, int minute);
 	}
 	
-	static TimePickerFragment newInstance(int ID, Date date) {
+	public static TimePickerFragment newInstance(int ID, Date date) {
 		TimePickerFragment f = new TimePickerFragment();
 		
 		Bundle b = new Bundle();

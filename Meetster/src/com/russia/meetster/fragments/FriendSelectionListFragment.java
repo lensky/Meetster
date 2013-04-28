@@ -1,4 +1,11 @@
-package com.russia.meetster;
+package com.russia.meetster.fragments;
+
+import com.russia.meetster.MeetsterLoaderManager;
+import com.russia.meetster.R;
+import com.russia.meetster.R.id;
+import com.russia.meetster.R.layout;
+import com.russia.meetster.data.MeetsterContract;
+import com.russia.meetster.data.MeetsterFriend;
 
 import android.app.Activity;
 import android.app.ListFragment;

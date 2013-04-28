@@ -1,7 +1,10 @@
-package com.russia.meetster;
+package com.russia.meetster.data;
 
 import java.util.HashMap;
 import java.util.List;
+
+import com.russia.meetster.utils.BaseTableContract;
+import com.russia.meetster.utils.YLUtils;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;

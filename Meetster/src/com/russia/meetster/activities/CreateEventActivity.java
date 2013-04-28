@@ -1,11 +1,15 @@
-package com.russia.meetster;
+package com.russia.meetster.activities;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.russia.meetster.CreateEventFragment.CreateEventFragmentListener;
-import com.russia.meetster.FriendSelectionListFragment.OnFriendsSelectedListener;
+import com.russia.meetster.R;
+import com.russia.meetster.R.menu;
+import com.russia.meetster.fragments.CreateEventFragment;
+import com.russia.meetster.fragments.FriendSelectionListFragment;
+import com.russia.meetster.fragments.CreateEventFragment.CreateEventFragmentListener;
+import com.russia.meetster.fragments.FriendSelectionListFragment.OnFriendsSelectedListener;
 
 import android.os.Bundle;
 import android.app.Activity;

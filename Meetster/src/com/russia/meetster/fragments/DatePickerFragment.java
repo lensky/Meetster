@@ -1,9 +1,9 @@
-package com.russia.meetster;
+package com.russia.meetster.fragments;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import com.russia.meetster.TimePickerFragment.TimePickerListener;
+import com.russia.meetster.fragments.TimePickerFragment.TimePickerListener;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;

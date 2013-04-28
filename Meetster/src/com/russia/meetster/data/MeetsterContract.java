@@ -1,4 +1,6 @@
-package com.russia.meetster;
+package com.russia.meetster.data;
+
+import com.russia.meetster.utils.BaseTableContract;
 
 import android.content.ContentUris;
 import android.net.Uri;
@@ -16,7 +18,7 @@ public class MeetsterContract {
 		public final static String FRIENDS = "friends";
 	}
 	
-	final static class EventsContract extends BaseTableContract {
+	public final static class EventsContract extends BaseTableContract {
 		public final static String	CREATORID				= "events_creatorid";
 		public final static String	CREATION_TIME			= "events_creationtime";
 		public final static String	CATEGORY				= "events_category";
@@ -95,7 +97,7 @@ public class MeetsterContract {
 		}
 	}
 	
-	final static class CategoriesContract extends BaseTableContract {
+	public final static class CategoriesContract extends BaseTableContract {
 		public final static String DESCRIPTION = "categories_description";
 		
 		public String[] getColumns() {
@@ -126,7 +128,7 @@ public class MeetsterContract {
 		}
 	}
 	
-	final static class FriendsContract extends BaseTableContract {
+	public final static class FriendsContract extends BaseTableContract {
 		public final static String FIRST_NAME = "friends_firstname";
 		public final static String LAST_NAME = "friends_lastname";
 		
