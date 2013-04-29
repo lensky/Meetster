@@ -6,7 +6,7 @@
   (:require [cheshire.core :as json])
   (:import [java.util.Date]))
 
-(def database-uri (or (System/getenv "DATABASE_URL")
+(def database-uri (or (System/getenv "HEROKU_POSTGRESQL_BLACK_URL")
                       "postgresql://localhost:5432/meetster-server"))
 
 ;; Route info (useful for API consistency)
