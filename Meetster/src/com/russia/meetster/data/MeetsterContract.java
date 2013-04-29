@@ -30,8 +30,9 @@ public class MeetsterContract {
 		public final static String	LONGITUDE				= "events_longitude";
 		public final static String	MAX_RADIUS				= "events_maxradius";
 		public final static String	LOCATION_DESCRIPTION	= "events_locationdescription";
+		public final static String 	SYNCED 					= "events_synced";
 		public final static String  MATCHINGID  	        = "m_id";
-				
+		
 		public String[] getColumns() {
 			return new String[] {
 					CREATORID,
@@ -45,6 +46,7 @@ public class MeetsterContract {
 					LONGITUDE,
 					MAX_RADIUS,
 					LOCATION_DESCRIPTION,
+					SYNCED,
 			};
 		}
 		
@@ -62,6 +64,7 @@ public class MeetsterContract {
 					LONGITUDE,
 					MAX_RADIUS,
 					LOCATION_DESCRIPTION,
+					SYNCED,
 			}; 
 		}
 		
@@ -78,6 +81,7 @@ public class MeetsterContract {
 					"real",
 					"real",
 					"text",
+					"integer default 0", // by default, unsynced
 			};
 		}
 		

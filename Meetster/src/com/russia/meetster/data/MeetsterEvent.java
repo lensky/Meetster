@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.russia.meetster.utils.YLSQLRow;
 import com.russia.meetster.utils.YLUtils;
 
@@ -40,6 +43,8 @@ public class MeetsterEvent extends YLSQLRow {
 	
 	private List<Long> inviteeIds;
 	
+	private boolean synced = false;
+	
 	public MeetsterEvent(Context c, long creatorId, String locationDescription, long categoryId,
 			String description, Date startTime, Date endTime, List<Long> inviteeIds) {
 		this.mContext = c;
@@ -49,6 +54,22 @@ public class MeetsterEvent extends YLSQLRow {
 		this.description = description;
 		this.timeRange = new Date[] { startTime, endTime };
 		this.inviteeIds = inviteeIds;
+	}
+	
+	public MeetsterEvent(Context c, JSONObject j) throws JSONException, ParseException {
+		this.mContext = c;
+		
+		this.setCreator(j.getLong("creatorid"));
+		this.setCategory(j.getLong("categoryid"));
+		this.setDescription(j.getString("description"));
+		this.timeRange = new Date[] {
+			sqlTimestampStringToDate(j.getString("start_time")),
+			sqlTimestampStringToDate(j.getString("end_time"))
+		};
+		this.location = new Location("Meetster");
+		this.location.setLatitude(j.getDouble("latitude"));
+		this.location.setLongitude(j.getDouble("longitude"));
+		this.setLocationDescription(j.getString("location_description"));
 	}
 	
 	public MeetsterEvent(Context context, Cursor c) {		
@@ -94,6 +115,30 @@ public class MeetsterEvent extends YLSQLRow {
 		
 		this.locationDescription = getCursorString(c, MeetsterContract.Events.LOCATION_DESCRIPTION);
 		this.description = getCursorString(c, MeetsterContract.Events.DESCRIPTION);
+		
+		this.setSynced(getCursorInteger(c, MeetsterContract.Events.SYNCED));
+	}
+	
+	public void setSynced(boolean bool) {
+		this.synced = bool;
+	}
+	
+	public void setSynced(Integer bool) {
+		if ((bool == 0) || (bool == null))
+			this.setSynced(false);
+		else
+			this.setSynced(true);
+	}
+	
+	public boolean getSynced() {
+		return this.synced;
+	}
+	
+	public int getSyncedAsInt() {
+		if (this.getSynced())
+			return 1;
+		else
+			return 0;
 	}
 	
 	public void setCreator(MeetsterFriend creator) {
@@ -178,6 +223,7 @@ public class MeetsterEvent extends YLSQLRow {
 			vals.put(MeetsterContract.Events.LONGITUDE, getLongitude());
 		}
 		vals.put(MeetsterContract.Events.LOCATION_DESCRIPTION, this.locationDescription);
+		vals.put(MeetsterContract.Events.SYNCED, this.getSyncedAsInt());
 
 		return vals;
 	}
@@ -256,5 +302,24 @@ public class MeetsterEvent extends YLSQLRow {
 	
 	public Date getEndTime() {
 		return (timeRange == null) ? null : timeRange[1];
+	}
+
+	public JSONObject toJSON() {
+		JSONObject json = new JSONObject();
+		
+		try {
+			json.put("creatorid", this.getCreatorId());
+			json.put("creation_time", dateToSQLTimestamp(this.getCreationTime()));
+			json.put("categoryid", this.getCategoryId());
+			json.put("description", this.getDescription());
+			json.put("start_time", dateToSQLTimestamp(this.getStartTime()));
+			json.put("end_time", dateToSQLTimestamp(this.getEndTime()));
+			json.put("latitdue", this.getLatitude());
+			json.put("longitude", this.getLongitude());
+			json.put("location_description", this.getLocationDescription());
+			json.put("invitee_ids_string", this.inviteeIdsToString());
+		} catch (Exception e) {}
+		
+		return json;
 	}
 }
