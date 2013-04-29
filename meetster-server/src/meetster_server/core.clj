@@ -3,7 +3,8 @@
   (:use [ring.middleware.params :only [wrap-params]])
   (:require [clojure.java.jdbc :as sql])
   (:require [clojureql.core :as cql])
-  (:require [cheshire.core :as json]))
+  (:require [cheshire.core :as json])
+  (:import [java.util.Date]))
 
 (def database-uri (or (System/getenv "DATABASE_URL")
                       "postgresql://localhost:5432/meetster-server"))
@@ -45,7 +46,7 @@
    [:start_time :timestamp]
    [:end_time :timestamp]
    [:latitude :real]
-   [:longitdue :real]
+   [:longitude :real]
    [:max_radius :real]
    [:location_description :text]))
 
@@ -107,11 +108,11 @@
           {:eventid event-id :inviteeid invitee-id}))))))
 
 (defn sql-get-new-events [userid last-sync-time]
-  [])
+  '())
 
 (defn sync-user [req]
-  (let [userid (get (:params req) *params-userid*)
-        last-sync-time (Integer/parseInt (get (:params req) *params-lastsynctime*))
+  (let [userid (Integer/parseInt (get (:params req) *params-userid*))
+        last-sync-time (get (:params req) *params-lastsynctime*)
         remote-new-events (json/parse-string (get (:params req) *params-events*) true)]
     (let [local-new-events
           (sql/with-connection database-uri
