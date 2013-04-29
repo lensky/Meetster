@@ -1,10 +1,13 @@
 package com.russia.meetster.activities;
 
+import com.russia.meetster.MeetsterApplication;
 import com.russia.meetster.R;
 import com.russia.meetster.R.id;
 import com.russia.meetster.R.menu;
 import com.russia.meetster.fragments.EventsListFragment;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -73,14 +76,20 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		mActionBar = getActionBar();
-		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		
-		addTab(EventsListFragment.class, EventsListFragment.MATCHING_BUNDLE(this), "Matching");
-		addTab(EventsListFragment.class, EventsListFragment.INVITED_BUNDLE(this), "Invited");
-		addTab(EventsListFragment.class, EventsListFragment.MY_EVENTS_BUNDLE(this), "Mine");
-		addTab(EventsListFragment.class, EventsListFragment.DEFAULT_BUNDLE(this), "All");
+
+		if (!((MeetsterApplication)this.getApplicationContext()).isLoggedIn()) {
+			Intent i = new Intent(this, SignInActivity.class);
+			startActivity(i);
+		} else {
+
+			mActionBar = getActionBar();
+			mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+			addTab(EventsListFragment.class, EventsListFragment.MATCHING_BUNDLE(this), "Matching");
+			addTab(EventsListFragment.class, EventsListFragment.INVITED_BUNDLE(this), "Invited");
+			addTab(EventsListFragment.class, EventsListFragment.MY_EVENTS_BUNDLE(this), "Mine");
+			addTab(EventsListFragment.class, EventsListFragment.DEFAULT_BUNDLE(this), "All");
+		}
 	}
 
 	@Override

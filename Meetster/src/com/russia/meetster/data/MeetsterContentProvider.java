@@ -58,10 +58,6 @@ abstract class YLSQLiteOpenHelper extends SQLiteOpenHelper {
 		db.execSQL(
 				"INSERT INTO categories (categories_description) VALUES " +
 				"('Sports'),('Food'),('Entertainment'),('Work'),('Misc');");
-		
-		db.execSQL(
-				"INSERT INTO friends (friends_firstname,friends_lastname) VALUES " +
-				"('Yuri','Lensky'),('Trond','Anderson'),('Nicolai','Ludvigsen'),('Michael','Rodriguez');");
 	}
 }
 

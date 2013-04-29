@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name = "desc"></string>
-    <string name = "basketball"></string>
-    <string name = "desc3"></string>
-    <string name = "desc2"></string>
-	<string name = "desc4"></string>
-	<string name = "titleofEvent">What? </string>
-	<string name = "particfriends">Who? </string>
-	<string name = "specifyTime">Start time </string>
-	<string name = "fittari">Create new event</string>
-	<string name = "location">Where?</string>
-	<string name="settingslink">Settings</string>
+    <string name="desc"></string>
+    <string name="basketball"></string>
+    <string name="desc3"></string>
+    <string name="desc2"></string>
+    <string name="desc4"></string>
+    <string name="titleofEvent">What? </string>
+    <string name="particfriends">Who? </string>
+    <string name="specifyTime">Start time </string>
+    <string name="fittari">Create new event</string>
+    <string name="location">Where?</string>
+    <string name="settingslink">Settings</string>
     <string name="titleofsettings"></string>
     <string name="event_header">Create new event</string>
     <string name="event_category">Which? </string>
@@ -30,9 +30,11 @@
     <string name="starttime">Start:</string>
     <string name="endtime">End:</string>
     <string name="selecttimedate">Start time</string>
-    <string name = "linktext">Select from map</string>
-    <string name = "silver">#C0C0C0</string>
-	<string name = "margin">15dp</string>
-	<string name = "enddatetime2">End time</string>
-	<string name="app_name">Meetster</string>
+    <string name="linktext">Select from map</string>
+    <string name="silver">#C0C0C0</string>
+    <string name="margin">15dp</string>
+    <string name="enddatetime2">End time</string>
+    <string name="app_name">Meetster</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+
 </resources>

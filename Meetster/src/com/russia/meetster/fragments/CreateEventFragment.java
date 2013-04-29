@@ -134,7 +134,7 @@ public class CreateEventFragment extends Fragment implements TimePickerListener,
 	}
 	
 	private void showTimePicker(int id, Date time) {
-		TimePickerFragment timePicker = TimePickerFragment.newInstance(STARTTIMEID, time);
+		TimePickerFragment timePicker = TimePickerFragment.newInstance(id, time);
 		timePicker.setListener(this);
 		timePicker.show(this.getActivity().getFragmentManager(), "timePickerDialog");
 	}

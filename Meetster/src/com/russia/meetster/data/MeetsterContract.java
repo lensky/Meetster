@@ -131,9 +131,11 @@ public class MeetsterContract {
 	public final static class FriendsContract extends BaseTableContract {
 		public final static String FIRST_NAME = "friends_firstname";
 		public final static String LAST_NAME = "friends_lastname";
+		public final static String EMAIL = "friends_email";
 		
 		public String[] getColumns() {
 			return new String[] {
+					EMAIL,
 					FIRST_NAME,
 					LAST_NAME,
 			};
@@ -142,6 +144,7 @@ public class MeetsterContract {
 		public String[] getClassProjection() {
 			return new String[] {
 					_ID,
+					EMAIL,
 					FIRST_NAME,
 					LAST_NAME,
 			};
@@ -149,6 +152,7 @@ public class MeetsterContract {
 		
 		public String[] getColumnTypes() {
 			return new String[] {
+					"text",
 					"text",
 					"text",
 			};
