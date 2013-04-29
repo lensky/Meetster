@@ -108,7 +108,10 @@
           {:eventid event-id :inviteeid invitee-id}))))))
 
 (defn sql-get-new-events [userid last-sync-time]
-  '())
+  (sql/with-query-results rs
+    [(format "select events.* from (events inner join (select eventid from invitees where inviteeid=?) as eventid on events.id = eventid) where events.creation_time > '%s'" last-sync-time)
+     userid]
+    (doall rs)))
 
 (defn sync-user [req]
   (let [userid (Integer/parseInt (get (:params req) *params-userid*))
@@ -120,7 +123,7 @@
             (sql-get-new-events userid last-sync-time))]
       {:status 200
        :headers {"Content-Type" "application/json"}
-       :body (json/generate-string local-new-events)})))
+       :body (json/generate-string local-new-events {:date-format "yyyy-MM-dd HH:mm:ss"})})))
 
 (defn test-post [req]
   {:status 200
@@ -143,7 +146,10 @@
      "/make-user" (wrap-params make-user)
      "/get-user-by-email" (wrap-params get-user-by-email)
      "/sync-user" (wrap-params sync-user)
-     "/test-post" (wrap-params test-post))
+     "/test-post" (wrap-params test-post)
+     "/" (fn [req] {:status 200
+                    :headers "Content-Type" "text/html"
+                    :body "Hello, Dave."}))
    req))
 
 (defn -main [port]
