@@ -8,4 +8,5 @@
                  [postgresql "9.1-901.jdbc4"]
                  [clojureql "1.0.4"]]
   :plugins [[lein-ring "0.8.5"]]
-  :ring {:handler meetster-server.core/app})
+  :ring {:handler meetster-server.core/app}
+  :min-lein-version "2.0.0")
