@@ -148,7 +148,7 @@
      "/sync-user" (wrap-params sync-user)
      "/test-post" (wrap-params test-post)
      "/" (fn [req] {:status 200
-                    :headers "Content-Type" "text/html"
+                    :headers {"Content-Type" "text/html"}
                     :body "Hello, Dave."}))
    req))
 
