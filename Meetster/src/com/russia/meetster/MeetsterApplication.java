@@ -4,15 +4,32 @@ import java.util.Date;
 
 import com.russia.meetster.utils.YLSQLRow;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Application;
 import android.content.SharedPreferences;
 
 public class MeetsterApplication extends Application {
 	private static final String PREFS_USERIDKEY = "userid";
 	private static final String PREFS_LASTSYNC = "lastsync";
+	private static final String PREFS_HASFRIEND = "hasfriend";
+	
 	public final static String PREFS_NAME="MeetsterPreferences";
 	private long mUserId = -1;
+	private Boolean mHasFriend = null;
+	
 	private SharedPreferences mPrefs;
+	private Account mAccount;
+	
+	public Account getAccount() {
+		if (mAccount == null) {
+			AccountManager am = AccountManager.get(this);
+			Account[] accounts = am.getAccountsByType("com.google");
+			if (accounts.length > 0)
+				mAccount = accounts[0];
+		}
+		return mAccount;
+	}
 	
 	private SharedPreferences getPrefs() {
 		if (mPrefs == null) {
@@ -54,5 +71,23 @@ public class MeetsterApplication extends Application {
 	
 	public void setLastSyncTime(Date lastSyncTime) {
 		setLastSyncTime(YLSQLRow.dateToSQLTimestamp(lastSyncTime));
+	}
+	
+	public boolean noFriends() {
+		if (mHasFriend == null) {
+			mHasFriend = getPrefs().getBoolean(PREFS_HASFRIEND, false);
+		}
+		return !mHasFriend;
+	}
+	
+	public void setHasFriend() {
+		if (this.noFriends()) {
+			SharedPreferences.Editor editor = getPrefs().edit();
+
+			editor.putBoolean(PREFS_HASFRIEND, true);
+			editor.commit();
+
+			mHasFriend = true;
+		}
 	}
 }

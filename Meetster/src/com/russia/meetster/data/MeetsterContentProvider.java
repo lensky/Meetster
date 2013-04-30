@@ -3,6 +3,7 @@ package com.russia.meetster.data;
 import java.util.HashMap;
 import java.util.List;
 
+import com.russia.meetster.MeetsterApplication;
 import com.russia.meetster.utils.BaseTableContract;
 import com.russia.meetster.utils.YLUtils;
 
@@ -106,6 +107,7 @@ public class MeetsterContentProvider extends ContentProvider {
 	private static final int MATCHING_USER_EVENTS = 7;
 	private static final int USERS_EVENTS = 8;
 	private static final int MATCHING_EVENT_EVENTS = 9;
+	private static final int UNSYNCED_INVITERS = 10;
 
 	private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 	
@@ -125,6 +127,7 @@ public class MeetsterContentProvider extends ContentProvider {
 		uriMatcher.addURI(AUTHORITY, MeetsterContract.Events.getTableName() + "/users/#", USERS_EVENTS);
 		uriMatcher.addURI(AUTHORITY, MeetsterContract.Events.getTableName() + "/matching_user/#", MATCHING_USER_EVENTS);
 		uriMatcher.addURI(AUTHORITY, MeetsterContract.Events.getTableName() + "/matching_event/#", MATCHING_EVENT_EVENTS);
+		uriMatcher.addURI(AUTHORITY, MeetsterContract.Events.getTableName() + "/unsynced_inviters", UNSYNCED_INVITERS);
 	}
 	
 	private SQLiteOpenHelper sqliteHelper;
@@ -135,6 +138,9 @@ public class MeetsterContentProvider extends ContentProvider {
 		sqliteHelper = new MeetsterDBOpenHelper(getContext());
 		return true;
 	}
+	
+	String template;
+	HashMap<String,String> hMap;
 	
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection,
@@ -150,7 +156,7 @@ public class MeetsterContentProvider extends ContentProvider {
 			qB.appendWhere(BaseColumns._ID + "=" + ContentUris.parseId(uri));
 			break;
 		case MATCHING_USER_EVENTS:
-			String template = 
+			template = 
 					"(select {mid}," + YLUtils.join(",", MeetsterContract.Events.getClassProjection()) + " from " +
 					"((select {id} as {mid}, {category} as mcategory, {starttime} as mstarttime, {endtime} as mendtime from {eventstable} where {creatorid} = {userid}) " +
 					"inner join " +
@@ -160,7 +166,7 @@ public class MeetsterContentProvider extends ContentProvider {
 					"(datetime({starttime}) <= datetime(mendtime)) and " +
 					"(datetime({endtime}) >= datetime(mstarttime))))";
 			
-			HashMap<String,String> hMap = new HashMap<String,String>();
+			hMap = new HashMap<String,String>();
 			
 			hMap.put("mid", MeetsterContract.Events.MATCHINGID);
 			hMap.put("userid", String.valueOf(ContentUris.parseId(uri)));
@@ -175,6 +181,25 @@ public class MeetsterContentProvider extends ContentProvider {
 			break;
 		case MATCHING_EVENT_EVENTS:
 			break;
+		case UNSYNCED_INVITERS:
+			template =
+				"(SELECT {creatorid} FROM {eventstable})";
+			
+			hMap = new HashMap<String, String>();
+			hMap.put("creatorid", MeetsterContract.Events.CREATORID);
+			hMap.put("eventstable", MeetsterContract.Events.getTableName());
+			
+			qB.setTables(YLUtils.fillTemplate(template, hMap));
+			
+			template = "{creatorid} NOT IN (SELECT {id} FROM {friendstable})";
+			
+			hMap = new HashMap<String, String>();
+			hMap.put("creatorid", MeetsterContract.Events.CREATORID);
+			hMap.put("id", MeetsterContract.Friends._ID);
+			hMap.put("friendstable", MeetsterContract.Friends.getTableName());
+			
+			qB.appendWhere(YLUtils.fillTemplate(template, hMap));
+			
 		case UriMatcher.NO_MATCH:
 			throw new IllegalArgumentException("Invalid URI for Meetster query: " + uri);
 		default:
@@ -203,6 +228,7 @@ public class MeetsterContentProvider extends ContentProvider {
 		case CATEGORY:
 			break;
 		case FRIEND:
+			((MeetsterApplication) this.getContext().getApplicationContext()).setHasFriend();
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid URI for Meetster insertion: " + uri);
@@ -219,7 +245,12 @@ public class MeetsterContentProvider extends ContentProvider {
 			String[] selectionArgs) {
 		String tableName;
 		
-		switch(uriMatcher.match(uri)) {
+		int uriMatch = uriMatcher.match(uri);
+		if (uriMatch == FRIEND || uriMatch == FRIEND_ID) {
+			((MeetsterApplication) this.getContext().getApplicationContext()).setHasFriend();
+		}
+		
+		switch(uriMatch) {
 		case UriMatcher.NO_MATCH:
 			throw new IllegalArgumentException("Invalid URI for Meetster update: " + uri);
 		default:

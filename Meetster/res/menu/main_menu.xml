@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/addEventMenuItem" android:showAsAction="always" android:title="Add event"></item>
+    <item android:id="@+id/menuItemAddEvent" android:showAsAction="always" android:title="Add event"></item>
+    <item android:id="@+id/menuItemRefresh" android:title="Refresh" android:showAsAction="always"></item>
     
 
 </menu>

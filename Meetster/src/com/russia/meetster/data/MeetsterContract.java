@@ -99,6 +99,10 @@ public class MeetsterContract {
 		public Uri getMatchingUserURI(Long id) {
 			return ContentUris.withAppendedId(Uri.withAppendedPath(this.getUri(), "matching_user"), id);
 		}
+		
+		public Uri getUnsyncedInvitersURI() {
+			return Uri.withAppendedPath(this.getUri(), "unsynced_inviters");
+		}
 	}
 	
 	public final static class CategoriesContract extends BaseTableContract {

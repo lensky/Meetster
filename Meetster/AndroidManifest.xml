@@ -40,6 +40,14 @@
             android:name="com.russia.meetster.activities.SignInActivity"
             android:label="@string/title_activity_sign_in" >
         </activity>
+        <service android:name=".data.MeetsterSyncService" android:exported="true">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter"/>
+            </intent-filter>
+            <meta-data 
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/sync_meetster"/>
+        </service>
     </application>
 
 </manifest>

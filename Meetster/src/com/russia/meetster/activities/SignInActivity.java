@@ -38,12 +38,9 @@ public class SignInActivity extends Activity {
 		mEditLastName = (EditText) this.findViewById(R.id.editTextLastName);
 		mEditEmail = (EditText) this.findViewById(R.id.editTextEmail);
 		
-		AccountManager am = AccountManager.get(this);
-		Account[] accounts = am.getAccountsByType("com.google");
-		
-		if (accounts.length > 0) {
-			String defaultEmail = accounts[0].name;
-			mEditEmail.setText(defaultEmail);
+		Account ac = ((MeetsterApplication) this.getApplicationContext()).getAccount();
+		if (ac != null) {
+			mEditEmail.setText(ac.name);
 		}
 		
 		mCreateAccount.setOnClickListener(new View.OnClickListener() {

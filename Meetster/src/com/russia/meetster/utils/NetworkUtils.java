@@ -23,19 +23,23 @@ import org.json.JSONObject;
 import android.content.Context;
 
 import com.russia.meetster.MeetsterApplication;
+import com.russia.meetster.data.MeetsterDataManager;
 import com.russia.meetster.data.MeetsterEvent;
 import com.russia.meetster.data.MeetsterFriend;
 
 public class NetworkUtils {
 	public static int STATUS_OK = 200;
 	
-	public static String SERVER_URI = "http://10.0.2.2:5000";
+	public static String SERVER_URI = "http://obscure-dawn-5747.herokuapp.com";
 	public static String CREATEUSER_URI = SERVER_URI + "/make-user";
 	public static String GETUSERBYEMAIL_URI = SERVER_URI + "/get-user-by-email";
 	public static String SYNCUSER_URI = SERVER_URI + "/sync-user";
+	public static String SEARCHUSERBYEMAIL_URI = SERVER_URI + "/search-user-by-email";
+	public static String GETUSERS_URI = SERVER_URI + "/get-users";
 	
 	public static String PARAMS_USERINFO = "userinfo";
 	public static String PARAMS_USERID = "userid";
+	public static String PARAMS_USERIDS = "userids";
 	public static String PARAMS_LASTSYNCTIME = "last-sync-time";
 	public static String PARAMS_EVENTS = "events";
 	public static String PARAMS_EMAIL = "email";
@@ -57,8 +61,52 @@ public class NetworkUtils {
 		return client.execute(post);
 	}
 	
+	public static List<MeetsterFriend> downloadUsers(List<Long> userIds) throws ClientProtocolException, IOException, JSONException {
+		final List<NameValuePair> params = new ArrayList<NameValuePair>();
+		
+		JSONArray idJson = new JSONArray(userIds);
+		params.add(new BasicNameValuePair(PARAMS_USERIDS, idJson.toString()));
+		
+		HttpResponse resp = postToURI(GETUSERS_URI, params);
+		
+		List<MeetsterFriend> result = new ArrayList<MeetsterFriend>();
+		if (resp.getStatusLine().getStatusCode() == STATUS_OK) {
+			String response = EntityUtils.toString(resp.getEntity());
+			JSONArray users = new JSONArray(response);
+			for (int i = 0; i < users.length(); ++i) {
+				JSONObject userJSON = users.getJSONObject(i);
+				MeetsterFriend user = new MeetsterFriend(userJSON);
+				result.add(user);
+			}
+		}
+		return result;
+	}
+	
 	public static MeetsterFriend getRemoteUserInfo(String email) {
 		return null;
+	}
+	
+	public static List<MeetsterFriend> searchForUserByEmail(String email) throws ClientProtocolException, IOException, JSONException {
+		final List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair(PARAMS_EMAIL, email));
+		
+		HttpResponse resp = postToURI(SEARCHUSERBYEMAIL_URI, params);
+		
+		List<MeetsterFriend> result = new ArrayList<MeetsterFriend>();
+		
+		if (resp.getStatusLine().getStatusCode() == STATUS_OK) {
+			String response = EntityUtils.toString(resp.getEntity());
+			JSONArray usersJSON = new JSONArray(response);
+			
+			for (int i = 0; i < usersJSON.length(); ++i) {
+				JSONObject userJSON = usersJSON.getJSONObject(i);
+				MeetsterFriend friend = new MeetsterFriend(userJSON);
+				friend.online = true;
+				result.add(friend);
+			}
+		}
+		
+		return result;
 	}
 	
 	// Returns the new remote id
@@ -79,7 +127,8 @@ public class NetworkUtils {
 		}
 	}
 	
-	public static List<MeetsterEvent> syncEvents(Context context, Long userid, String lastSyncTime, List<MeetsterEvent> dirtyEvents) throws ClientProtocolException, IOException, JSONException {
+	public static List<MeetsterEvent> syncEvents(Context context, Long userid, String lastSyncTime, List<MeetsterEvent> dirtyEvents) 
+			throws ClientProtocolException, IOException, JSONException {
 		List<JSONObject> tempEvents = new ArrayList<JSONObject>();
 		for (MeetsterEvent event : dirtyEvents) {
 			tempEvents.add(event.toJSON());
@@ -97,6 +146,11 @@ public class NetworkUtils {
 		List<MeetsterEvent> remoteEvents = null;
 		
 		if (resp.getStatusLine().getStatusCode() == STATUS_OK) {
+			for (MeetsterEvent e : dirtyEvents) {
+				e.setSynced(true);
+				MeetsterDataManager.updateEvent(context, e);
+			}
+			
 			String response = EntityUtils.toString(resp.getEntity());
 			
 			JSONArray eventsJSON = new JSONArray(response);

@@ -4,11 +4,13 @@ import com.russia.meetster.MeetsterApplication;
 import com.russia.meetster.R;
 import com.russia.meetster.R.id;
 import com.russia.meetster.R.menu;
+import com.russia.meetster.data.MeetsterContentProvider;
 import com.russia.meetster.fragments.EventsListFragment;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -81,7 +83,6 @@ public class MainActivity extends Activity {
 			Intent i = new Intent(this, SignInActivity.class);
 			startActivity(i);
 		} else {
-
 			mActionBar = getActionBar();
 			mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -102,10 +103,13 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
-		case R.id.addEventMenuItem:
+		case R.id.menuItemAddEvent:
 			Intent i = new Intent(this, CreateEventActivity.class);
 			startActivity(i);
 			return true;
+		case R.id.menuItemRefresh:
+			ContentResolver.requestSync(((MeetsterApplication) this.getApplicationContext()).getAccount(), 
+					MeetsterContentProvider.AUTHORITY, new Bundle());
 		default:
 			return super.onOptionsItemSelected(item);
 		}

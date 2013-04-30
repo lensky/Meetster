@@ -16,6 +16,8 @@ public class MeetsterFriend extends YLSQLRow {
 	private String lastName;
 	private String email;
 	
+	public boolean online;
+	
 	public static MeetsterFriend getFromId(Context c, long id) {
 		Cursor cursor = c.getContentResolver().query(ContentUris.withAppendedId(MeetsterContract.Friends.getUri(), id), 
 				MeetsterContract.Friends.getClassProjection(), null, null, null);
@@ -34,6 +36,13 @@ public class MeetsterFriend extends YLSQLRow {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+	}
+	
+	public MeetsterFriend(JSONObject json) throws JSONException {
+		this.id = json.getLong("id");
+		this.firstName = json.getString("first_name");
+		this.lastName = json.getString("last_name");
+		this.email = json.getString("email");
 	}
 	
 	public ContentValues toValues() {
