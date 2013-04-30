@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.russia.meetster.MeetsterApplication;
 import com.russia.meetster.R;
 import com.russia.meetster.R.menu;
 import com.russia.meetster.fragments.CreateEventFragment;
@@ -40,11 +41,16 @@ public class CreateEventActivity extends Activity implements OnFriendsSelectedLi
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		FragmentTransaction ft = getFragmentManager().beginTransaction();
-		
-		mCreateEventFragment = new CreateEventFragment();
-		ft.add(android.R.id.content, mCreateEventFragment);
-		ft.commit();
+		if (((MeetsterApplication) this.getApplicationContext()).noFriends()) {
+			Intent i = new Intent(this, AddFriendActivity.class);
+			startActivity(i);
+		} else {
+			FragmentTransaction ft = getFragmentManager().beginTransaction();
+			
+			mCreateEventFragment = new CreateEventFragment();
+			ft.add(android.R.id.content, mCreateEventFragment);
+			ft.commit();
+		}
 	}
 
 	@Override

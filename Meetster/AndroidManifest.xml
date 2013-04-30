@@ -48,6 +48,7 @@
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/sync_meetster"/>
         </service>
+        <activity android:name=".activities.AddFriendActivity"></activity>
     </application>
 
 </manifest>
