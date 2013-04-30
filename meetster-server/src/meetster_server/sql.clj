@@ -12,7 +12,7 @@
 (defmacro with-connection [& body]
   `(sql/with-connection database-uri ~@body))
 
-(def database-uri (or (System/getenv "DATABASE_URL")
+(def database-uri (or (System/getenv "HEROKU_POSTGRESQL_PINK_URL")
                       "postgresql://localhost:5432/meetster-server"))
 
 (def timestamp-formatter (new java.text.SimpleDateFormat "yyyy-MM-dd HH:mm"))
