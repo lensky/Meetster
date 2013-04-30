@@ -30,7 +30,7 @@ import com.russia.meetster.data.MeetsterFriend;
 public class NetworkUtils {
 	public static int STATUS_OK = 200;
 	
-	public static String SERVER_URI = "http://obscure-dawn-5747.herokuapp.com";
+	public static String SERVER_URI = "http://meetster-server.herokuapp.com";
 	public static String CREATEUSER_URI = SERVER_URI + "/make-user";
 	public static String GETUSERBYEMAIL_URI = SERVER_URI + "/get-user-by-email";
 	public static String SYNCUSER_URI = SERVER_URI + "/sync-user";
