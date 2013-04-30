@@ -10,6 +10,7 @@ import com.russia.meetster.MeetsterApplication;
 import com.russia.meetster.R;
 import com.russia.meetster.R.layout;
 import com.russia.meetster.R.menu;
+import com.russia.meetster.data.MeetsterDataManager;
 import com.russia.meetster.data.MeetsterFriend;
 import com.russia.meetster.utils.NetworkUtils;
 
@@ -63,8 +64,12 @@ public class SignInActivity extends Activity {
 		protected Long doInBackground(MeetsterFriend... params) {
 			// TODO Auto-generated method stub
 			long id = -1;
+			MeetsterFriend f = params[0];
+
 			try {
-				id = NetworkUtils.createRemoteUser(params[0]);
+				id = NetworkUtils.createRemoteUser(f);
+				f.setId(id);
+				MeetsterDataManager.writeUser(getApplicationContext(), f);
 			} catch (ClientProtocolException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -78,6 +83,7 @@ public class SignInActivity extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			return id;
 		}
 		

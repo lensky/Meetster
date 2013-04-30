@@ -48,9 +48,10 @@ public class MeetsterFriend extends YLSQLRow {
 	public ContentValues toValues() {
 		ContentValues vals = new ContentValues();
 		
-		vals.put(MeetsterContract.Friends.FIRST_NAME, this.firstName);
-		vals.put(MeetsterContract.Friends.LAST_NAME, this.lastName);
-		vals.put(MeetsterContract.Friends.EMAIL, this.email);
+		vals.put(MeetsterContract.Friends._ID, this.getId());
+		vals.put(MeetsterContract.Friends.FIRST_NAME, this.getFirstName());
+		vals.put(MeetsterContract.Friends.LAST_NAME, this.getLastName());
+		vals.put(MeetsterContract.Friends.EMAIL, this.getEmail());
 		
 		return vals;
 	}
@@ -65,7 +66,7 @@ public class MeetsterFriend extends YLSQLRow {
 		return friend;
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	public void setId(long id) {

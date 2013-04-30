@@ -82,10 +82,6 @@ public class NetworkUtils {
 		return result;
 	}
 	
-	public static MeetsterFriend getRemoteUserInfo(String email) {
-		return null;
-	}
-	
 	public static List<MeetsterFriend> searchForUsersByEmail(String email) throws ClientProtocolException, IOException, JSONException {
 		final List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(PARAMS_EMAIL, email));

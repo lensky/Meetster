@@ -11,6 +11,7 @@ import com.russia.meetster.R;
 import com.russia.meetster.R.id;
 import com.russia.meetster.R.layout;
 import com.russia.meetster.data.MeetsterContract;
+import com.russia.meetster.data.MeetsterDataManager;
 import com.russia.meetster.data.MeetsterEvent;
 import com.russia.meetster.fragments.DatePickerFragment.DatePickerListener;
 import com.russia.meetster.fragments.TimePickerFragment.TimePickerListener;
@@ -170,7 +171,7 @@ public class CreateEventFragment extends Fragment implements TimePickerListener,
 		
 		MeetsterEvent event = new MeetsterEvent((Context) this.getActivity(), creatorId, locationString, categoryId, description, mStartTime, mEndTime, mInviteeIds);
 		
-		this.getActivity().getContentResolver().insert(MeetsterContract.Events.getUri(), event.toValues());
+		MeetsterDataManager.writeEvent(this.getActivity(), event);
 		
 		mCallback.onEventCreated();
 	}

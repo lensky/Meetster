@@ -8,6 +8,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 
 import com.russia.meetster.R;
+import com.russia.meetster.data.MeetsterDataManager;
 import com.russia.meetster.data.MeetsterFriend;
 import com.russia.meetster.utils.NetworkUtils;
 
@@ -17,17 +18,21 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class RemoteFriendListFragment extends ListFragment {
 	
 	private Context mContext;
 	private EditText mEditSearch;
+	private Button mButtonSearch;
 	private LayoutInflater mInflater;
 	private ArrayAdapter<MeetsterFriend> mAdapter;
 	
@@ -88,27 +93,25 @@ public class RemoteFriendListFragment extends ListFragment {
 	}
 	
 	@Override
+	public void onListItemClick(ListView l, View v, int pos, long id) {
+		MeetsterFriend user = mAdapter.getItem(pos);
+		MeetsterDataManager.writeUser(mContext, user);
+	}
+	
+	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
+		this.setListAdapter(mAdapter);
+		
 		mEditSearch = (EditText) this.getView().findViewById(R.id.editTextSearch);
-		mEditSearch.addTextChangedListener(new TextWatcher() {
+		mButtonSearch = (Button) this.getView().findViewById(R.id.buttonSearch);
+		
+		mButtonSearch.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void afterTextChanged(Editable s) {
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {				
-			}
-
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				if (count > 3) {
-					String searchString = mEditSearch.getText().toString();
-					new GetRemoteUsers().execute(searchString);
-				}
+			public void onClick(View v) {
+				String searchText = mEditSearch.getText().toString();
+				(new GetRemoteUsers()).execute(searchText);
 			}
 		});
 	}

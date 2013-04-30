@@ -43,7 +43,7 @@ public class MeetsterEvent extends YLSQLRow {
 	
 	private List<Long> inviteeIds;
 	
-	private boolean synced = false;
+	private boolean mSynced = false;
 	
 	public MeetsterEvent(Context c, long creatorId, String locationDescription, long categoryId,
 			String description, Date startTime, Date endTime, List<Long> inviteeIds) {
@@ -120,7 +120,7 @@ public class MeetsterEvent extends YLSQLRow {
 	}
 	
 	public void setSynced(boolean bool) {
-		this.synced = bool;
+		this.mSynced = bool;
 	}
 	
 	public void setSynced(Integer bool) {
@@ -131,7 +131,7 @@ public class MeetsterEvent extends YLSQLRow {
 	}
 	
 	public boolean getSynced() {
-		return this.synced;
+		return this.mSynced;
 	}
 	
 	public int getSyncedAsInt() {
@@ -161,7 +161,7 @@ public class MeetsterEvent extends YLSQLRow {
 	}
 
 	public long getCreatorId() {
-		return this.getCreator().getId();
+		return this.creatorId;
 	}
 
 	public void setCategory(MeetsterCategory category) {
@@ -212,6 +212,7 @@ public class MeetsterEvent extends YLSQLRow {
 	public ContentValues toValues() {
 		ContentValues vals = new ContentValues();
 		
+		vals.put(MeetsterContract.Events._ID, this.getId());
 		vals.put(MeetsterContract.Events.CREATORID, this.getCreatorId());
 		vals.put(MeetsterContract.Events.CATEGORY, this.getCategoryId());
 		vals.put(MeetsterContract.Events.INVITEE_IDS, inviteeIdsToString());
@@ -236,7 +237,7 @@ public class MeetsterEvent extends YLSQLRow {
 		return invitees;
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 

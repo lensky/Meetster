@@ -83,6 +83,8 @@ public class MainActivity extends Activity {
 			Intent i = new Intent(this, SignInActivity.class);
 			startActivity(i);
 		} else {
+			ContentResolver.setSyncAutomatically(((MeetsterApplication) this.getApplicationContext()).getAccount(), MeetsterContentProvider.AUTHORITY, true);
+			
 			mActionBar = getActionBar();
 			mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -102,14 +104,24 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent i;
 		switch(item.getItemId()) {
 		case R.id.menuItemAddEvent:
-			Intent i = new Intent(this, CreateEventActivity.class);
+			i = new Intent(this, CreateEventActivity.class);
+			startActivity(i);
+			return true;
+		case R.id.menuItemAddFriends:
+			i = new Intent(this, AddFriendActivity.class);
 			startActivity(i);
 			return true;
 		case R.id.menuItemRefresh:
+			Bundle b = new Bundle();
+			b.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+			b.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+			b.putBoolean(ContentResolver.SYNC_EXTRAS_FORCE, true);
 			ContentResolver.requestSync(((MeetsterApplication) this.getApplicationContext()).getAccount(), 
-					MeetsterContentProvider.AUTHORITY, new Bundle());
+					MeetsterContentProvider.AUTHORITY, b);
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

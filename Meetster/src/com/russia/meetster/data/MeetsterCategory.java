@@ -29,7 +29,7 @@ public class MeetsterCategory extends YLSQLRow {
 		this.description = getCursorString(cursor, MeetsterContract.Categories.DESCRIPTION);
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	
@@ -51,6 +51,7 @@ public class MeetsterCategory extends YLSQLRow {
 	
 	public ContentValues toValues() {
 		ContentValues vals = new ContentValues();
+		vals.put(MeetsterContract.Categories._ID, this.getId());
 		vals.put(MeetsterContract.Categories.DESCRIPTION, this.getDescription());
 		
 		return vals;
