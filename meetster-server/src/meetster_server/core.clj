@@ -2,6 +2,7 @@
   (:use [ring.adapter.jetty :only [run-jetty]])
   (:use [ring.middleware.params :only [wrap-params]])
   (:require [cheshire.core :as json])
+  (:use [cheshire.generate :only [add-encoder]])
   (:require [meetster-server.sql :as sql])
   (:import [java.util.Date]))
 
@@ -12,6 +13,11 @@
 (def ^:dynamic *params-events* "events")
 (def ^:dynamic *params-email* "email")
 (def ^:dynamic *params-userids* "userids")
+
+;; JSON setup
+(add-encoder java.util.Date
+             (fn [d jsonGenerator]
+               (.writeNumber jsonGenerator (.getTime d))))
 
 (defn make-user [req]
   (let [new-user-info (json/parse-string
