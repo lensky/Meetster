@@ -38,7 +38,7 @@
             (sql/get-new-events userid last-sync-time))]
       {:status 200
        :headers {"Content-Type" "application/json"}
-       :body (json/generate-string local-new-events {:date-format "yyyy-MM-dd HH:mm"})})))
+       :body (json/generate-string local-new-events)})))
 
 (defn test-post [req]
   {:status 200
