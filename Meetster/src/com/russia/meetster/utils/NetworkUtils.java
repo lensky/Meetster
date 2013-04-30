@@ -123,7 +123,7 @@ public class NetworkUtils {
 		}
 	}
 	
-	public static List<MeetsterEvent> syncEvents(Context context, Long userid, String lastSyncTime, List<MeetsterEvent> dirtyEvents) 
+	public static List<MeetsterEvent> syncEvents(Context context, Long userid, Long lastSyncTime, List<MeetsterEvent> dirtyEvents) 
 			throws ClientProtocolException, IOException, JSONException {
 		List<JSONObject> tempEvents = new ArrayList<JSONObject>();
 		for (MeetsterEvent event : dirtyEvents) {
@@ -134,7 +134,7 @@ public class NetworkUtils {
 		
 		final List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(PARAMS_USERID, String.valueOf(userid)));
-		params.add(new BasicNameValuePair(PARAMS_LASTSYNCTIME, lastSyncTime));
+		params.add(new BasicNameValuePair(PARAMS_LASTSYNCTIME, String.valueOf(lastSyncTime)));
 		params.add(new BasicNameValuePair(PARAMS_EVENTS, localEvents.toString()));
 		
 		HttpResponse resp = postToURI(SYNCUSER_URI, params);

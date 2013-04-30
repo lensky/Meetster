@@ -34,7 +34,7 @@ public class YLSQLRow {
 	public static Date sqlTimestampStringToDate(String dateString) throws ParseException {
 		if (dateString == null)
 			return null;
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		return df.parse(dateString);
 	}
 	

@@ -41,7 +41,7 @@ public class MeetsterSyncAdapter extends AbstractThreadedSyncAdapter {
 			// Get events...
 			unsyncedRemoteEvents = NetworkUtils.syncEvents(mContext, mApp.getCurrentUserId(), mApp.getLastSyncTime(), unsyncedLocalEvents);
 			
-			Date latestEventSynced = YLSQLRow.sqlTimestampStringToDate(mApp.getLastSyncTime());
+			Date latestEventSynced = new Date(mApp.getLastSyncTime());
 			
 			for (MeetsterEvent e : unsyncedRemoteEvents) {
 				e.setSynced(true);
@@ -57,9 +57,11 @@ public class MeetsterSyncAdapter extends AbstractThreadedSyncAdapter {
 			// Get any new users we might need from these events
 			List<Long> unsyncedInviters = MeetsterDataManager.getUnsyncedInviterIds(mContext);
 			
-			List<MeetsterFriend> newUsers = NetworkUtils.downloadUsers(unsyncedInviters);
-			for (MeetsterFriend f : newUsers) {
-				
+			if (unsyncedInviters.size() > 0) {
+				List<MeetsterFriend> newUsers = NetworkUtils.downloadUsers(unsyncedInviters);
+				for (MeetsterFriend f : newUsers) {
+					MeetsterDataManager.writeUser(mContext, f);
+				}
 			}
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
@@ -70,9 +72,6 @@ public class MeetsterSyncAdapter extends AbstractThreadedSyncAdapter {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
 
 	}

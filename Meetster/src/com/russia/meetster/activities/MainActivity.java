@@ -5,6 +5,7 @@ import com.russia.meetster.R;
 import com.russia.meetster.R.id;
 import com.russia.meetster.R.menu;
 import com.russia.meetster.data.MeetsterContentProvider;
+import com.russia.meetster.data.MeetsterSyncAdapter;
 import com.russia.meetster.fragments.EventsListFragment;
 
 import android.accounts.Account;
@@ -13,6 +14,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -101,6 +103,21 @@ public class MainActivity extends Activity {
 		inflater.inflate(R.menu.main_menu, menu);
 		return true;
 	}
+	
+	private class PerformSync extends AsyncTask<Void,Void,Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			MeetsterSyncAdapter m = new MeetsterSyncAdapter(MainActivity.this, false);
+			m.onPerformSync(null, null, MeetsterContentProvider.AUTHORITY, null, null);
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			
+		}
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -115,12 +132,13 @@ public class MainActivity extends Activity {
 			startActivity(i);
 			return true;
 		case R.id.menuItemRefresh:
-			Bundle b = new Bundle();
-			b.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-			b.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-			b.putBoolean(ContentResolver.SYNC_EXTRAS_FORCE, true);
-			ContentResolver.requestSync(((MeetsterApplication) this.getApplicationContext()).getAccount(), 
-					MeetsterContentProvider.AUTHORITY, b);
+			new PerformSync().execute();
+//			Bundle b = new Bundle();
+//			b.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+//			b.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+//			b.putBoolean(ContentResolver.SYNC_EXTRAS_FORCE, true);
+//			ContentResolver.requestSync(((MeetsterApplication) this.getApplicationContext()).getAccount(), 
+//					MeetsterContentProvider.AUTHORITY, b);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

@@ -199,7 +199,7 @@ public class MeetsterContentProvider extends ContentProvider {
 			hMap.put("friendstable", MeetsterContract.Friends.getTableName());
 			
 			qB.appendWhere(YLUtils.fillTemplate(template, hMap));
-			
+			break;
 		case UriMatcher.NO_MATCH:
 			throw new IllegalArgumentException("Invalid URI for Meetster query: " + uri);
 		default:

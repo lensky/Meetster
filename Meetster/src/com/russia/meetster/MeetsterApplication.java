@@ -58,19 +58,19 @@ public class MeetsterApplication extends Application {
 		editor.commit();
 	}
 	
-	public String getLastSyncTime() {
-		return getPrefs().getString(PREFS_LASTSYNC, "1970-01-01 00:00:00");
+	public Long getLastSyncTime() {
+		return getPrefs().getLong(PREFS_LASTSYNC, 0);
 	}
 	
-	public void setLastSyncTime(String lastSyncTime) {
+	public void setLastSyncTime(Long lastSyncTime) {
 		SharedPreferences.Editor editor = getPrefs().edit();
 		
-		editor.putString(PREFS_LASTSYNC, lastSyncTime);
+		editor.putLong(PREFS_LASTSYNC, lastSyncTime);
 		editor.commit();
 	}
 	
 	public void setLastSyncTime(Date lastSyncTime) {
-		setLastSyncTime(YLSQLRow.dateToSQLTimestamp(lastSyncTime));
+		setLastSyncTime(lastSyncTime.getTime());
 	}
 	
 	public boolean noFriends() {

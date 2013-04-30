@@ -61,15 +61,20 @@ public class MeetsterEvent extends YLSQLRow {
 		
 		this.setCreator(j.getLong("creatorid"));
 		this.setCategory(j.getLong("categoryid"));
+		this.setCreationTime(new Date(j.getLong("creation_time")));
 		this.setDescription(j.getString("description"));
 		this.timeRange = new Date[] {
-			sqlTimestampStringToDate(j.getString("start_time")),
-			sqlTimestampStringToDate(j.getString("end_time"))
+			new Date(j.getLong("start_time")),
+			new Date(j.getLong("end_time"))
 		};
 		this.location = new Location("Meetster");
-		this.location.setLatitude(j.getDouble("latitude"));
-		this.location.setLongitude(j.getDouble("longitude"));
-		this.setLocationDescription(j.getString("location_description"));
+		if (!j.isNull("latitude")) {
+			this.location.setLatitude((Double) j.get("latitude"));
+		}
+		if (!j.isNull("longitude")) {
+			this.location.setLongitude((Double) j.get("longitude"));
+		}
+		this.setLocationDescription((String) j.get("location_description"));
 	}
 	
 	public MeetsterEvent(Context context, Cursor c) {		
@@ -212,7 +217,6 @@ public class MeetsterEvent extends YLSQLRow {
 	public ContentValues toValues() {
 		ContentValues vals = new ContentValues();
 		
-		vals.put(MeetsterContract.Events._ID, this.getId());
 		vals.put(MeetsterContract.Events.CREATORID, this.getCreatorId());
 		vals.put(MeetsterContract.Events.CATEGORY, this.getCategoryId());
 		vals.put(MeetsterContract.Events.INVITEE_IDS, inviteeIdsToString());
@@ -310,11 +314,11 @@ public class MeetsterEvent extends YLSQLRow {
 		
 		try {
 			json.put("creatorid", this.getCreatorId());
-			json.put("creation_time", dateToSQLTimestamp(this.getCreationTime()));
+			json.put("creation_time", this.getCreationTime().getTime());
 			json.put("categoryid", this.getCategoryId());
 			json.put("description", this.getDescription());
-			json.put("start_time", dateToSQLTimestamp(this.getStartTime()));
-			json.put("end_time", dateToSQLTimestamp(this.getEndTime()));
+			json.put("start_time", this.getStartTime().getTime());
+			json.put("end_time", this.getEndTime().getTime());
 			json.put("latitdue", this.getLatitude());
 			json.put("longitude", this.getLongitude());
 			json.put("location_description", this.getLocationDescription());

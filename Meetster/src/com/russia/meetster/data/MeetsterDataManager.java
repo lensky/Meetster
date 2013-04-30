@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
@@ -45,11 +46,15 @@ public class MeetsterDataManager {
 	
 	public static void writeEvent(Context context, MeetsterEvent e) {
 		final ContentResolver resolver = context.getContentResolver();
-		resolver.insert(MeetsterContract.Events.getUri(), e.toValues());
+		ContentValues vs = e.toValues();
+		vs.remove(MeetsterContract.Events._ID);
+		resolver.insert(MeetsterContract.Events.getUri(), vs);
 	}
 	
 	public static void updateEvent(Context context, MeetsterEvent e) {
 		final ContentResolver resolver = context.getContentResolver();
-		resolver.update(ContentUris.withAppendedId(MeetsterContract.Events.getUri(), e.getId()), e.toValues(), null, null);
+		ContentValues vs = e.toValues();
+		vs.remove(MeetsterContract.Events._ID);
+		resolver.update(ContentUris.withAppendedId(MeetsterContract.Events.getUri(), e.getId()), vs, null, null);
 	}
 }
