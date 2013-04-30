@@ -6,8 +6,26 @@
   (:require [cheshire.core :as json])
   (:import [java.util.Date]))
 
+(defmacro as-results-of [fun vars & body]
+  `(let [~vars (map ~fun ~vars)]
+     ~@body))
+
+(defmacro as-sql-timestamp [vars & body]
+  `(as-results-of
+    (fn [var] (new java.sql.Timestamp (.getTime (sql-string-to-date var))))
+    ~vars
+    ~@body))
+
 (def database-uri (or (System/getenv "HEROKU_POSTGRESQL_BLACK_URL")
                       "postgresql://localhost:5432/meetster-server"))
+
+(def timestamp-formatter (new java.text.SimpleDateFormat "yyyy-MM-dd HH:mm"))
+
+(defn sql-string-to-date [date-string]
+  (.parse timestamp-formatter date-string))
+
+(defn sql-date-to-string [date]
+  (.format timestamp-formatter date))
 
 ;; Route info (useful for API consistency)
 (def ^:dynamic *params-userinfo* "userinfo")
@@ -95,18 +113,21 @@
   (let [{:keys [creatorid categoryid description start_time end_time
          latitude longitude max_radius location_description invitee_ids_string]}
         event-info]
-    (let [event-id
-          (:id (sql/insert-record
-                :events
-                {:creatorid creatorid :categoryid categoryid :description description
-                 :start_time start_time :end_time end_time :latitude latitude :longitude longitude
-                 :max_radius max_radius :location_description location_description}))
-          invitee-ids (map #(Integer/parseInt %) (clojure.string/split invitee_ids_string #","))]
-      (dorun
-       (for [invitee-id invitee-ids]
-         (sql/insert-record
-          :invitees
-          {:eventid event-id :inviteeid invitee-id}))))))
+    (as-sql-timestamp [start_time end_time]
+     (let [event-id
+           (:id (sql/insert-record
+                 :events
+                 {:creatorid creatorid :categoryid categoryid :description description
+                  :start_time start_time :end_time end_time :latitude latitude :longitude longitude
+                  :max_radius max_radius :location_description location_description}))
+           invitee-ids (if (nil? invitee_ids_string)
+                         '()
+                         (map #(Integer/parseInt %) (clojure.string/split invitee_ids_string #",")))]
+       (dorun
+        (for [invitee-id invitee-ids]
+          (sql/insert-record
+           :invitees
+           {:eventid event-id :inviteeid invitee-id})))))))
 
 (defn sql-get-new-events [userid last-sync-time]
   (sql/with-query-results rs
@@ -124,7 +145,7 @@
             (sql-get-new-events userid last-sync-time))]
       {:status 200
        :headers {"Content-Type" "application/json"}
-       :body (json/generate-string local-new-events {:date-format "yyyy-MM-dd HH:mm:ss"})})))
+       :body (json/generate-string local-new-events {:date-format "yyyy-MM-dd HH:mm"})})))
 
 (defn test-post [req]
   {:status 200
