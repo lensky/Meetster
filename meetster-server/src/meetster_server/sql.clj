@@ -3,12 +3,12 @@
   (:require [clojureql.core :as cql])
   (:use [meetster-server.utils :only [as-results-of]]))
 
-(defn epoch-string->sql-timestamp [epoch-string]
-  (new java.sql.Timestamp (Long/parseLong epoch-string)))
+(defn epoch->sql-timestamp [epoch-string]
+  (new java.sql.Timestamp epoch-string))
 
 (defmacro as-sql-timestamp [vars & body]
   `(as-results-of
-    epoch-string->sql-timestamp
+    epoch->sql-timestamp
     ~vars
     ~@body))
 
