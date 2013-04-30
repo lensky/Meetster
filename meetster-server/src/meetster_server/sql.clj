@@ -3,9 +3,12 @@
   (:require [clojureql.core :as cql])
   (:use [meetster-server.utils :only [as-results-of]]))
 
+(defn epoch-string->sql-timestamp [epoch-string]
+  (new java.sql.Timestamp (Long/parseLong epoch-string)))
+
 (defmacro as-sql-timestamp [vars & body]
   `(as-results-of
-    (fn [var] (new java.sql.Timestamp (.getTime (sql-string-to-date var))))
+    epoch-string->sql-timestamp
     ~vars
     ~@body))
 
@@ -14,14 +17,6 @@
 
 (def database-uri (or (System/getenv "HEROKU_POSTGRESQL_PINK_URL")
                       "postgresql://localhost:5432/meetster-server"))
-
-(def timestamp-formatter (new java.text.SimpleDateFormat "yyyy-MM-dd HH:mm"))
-
-(defn sql-string-to-date [date-string]
-  (.parse timestamp-formatter date-string))
-
-(defn sql-date-to-string [date]
-  (.format timestamp-formatter date))
 
 ;; Code to initialize the table
 ;; ----------------------------
@@ -110,8 +105,8 @@
 
 (defn get-new-events [userid last-sync-time]
   (sql/with-query-results rs
-    [(format "select events.* from (events inner join (select eventid from invitees where inviteeid=?) as eventid on events.id = eventid) where events.creation_time > '%s'" last-sync-time)
-     userid]
+    ["select events.* from (events inner join (select eventid from invitees where inviteeid=?) as eventid on events.id = eventid) where events.creation_time > ?"
+     userid last-sync-time]
     (doall rs)))
 
 

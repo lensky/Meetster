@@ -30,7 +30,7 @@
 
 (defn sync-user [req]
   (let [userid (Integer/parseInt (get (:params req) *params-userid*))
-        last-sync-time (get (:params req) *params-lastsynctime*)
+        last-sync-time (sql/epoch-string->sql-timestamp (get (:params req) *params-lastsynctime*))
         remote-new-events (json/parse-string (get (:params req) *params-events*) true)]
     (let [local-new-events
           (sql/with-connection
@@ -66,7 +66,7 @@
 
 (defn get-users [req]
   (let [userids (json/parse-string (get (:params req) *params-userids*))
-        users (sql/get-users userids)]
+        users (sql/with-connection (sql/get-users userids))]
     {:status 200
      :headers {"Content-Type" "application/json"}
      :body (json/generate-string users)}))
