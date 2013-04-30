@@ -1,7 +1,8 @@
-(ns meetster-server.intializedb
-  [:require [meetster-server.sql :as sql]])
+(ns meetster-server.initializedb
+  (:require [meetster-server.sql :as sql]))
 
 (defn -main []
   (println "Creating databases...")
-  (sql/with-connection initialize-database)
+  (println sql/database-uri)
+  (sql/with-connection (sql/initialize-database))
   (println "Done."))
