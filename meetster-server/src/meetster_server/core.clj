@@ -15,6 +15,7 @@
 (def ^:dynamic *params-lastsynctime* "last-sync-time")
 (def ^:dynamic *params-events* "events")
 (def ^:dynamic *params-email* "email")
+(def ^:dynamic *params-userids* "userids")
 
 ;; Code to initialize the table
 ;; ----------------------------
@@ -141,12 +142,41 @@
        :headers {"Content-Type" "application/json"}
        :body (json/generate-string local-user)})))
 
+(defn sql-search-user-by-email [email-part]
+  (sql/with-query-results rs
+    ["SELECT users.* from users where (users.email ILIKE ?)"
+     (str "%" email-part "%")]
+    (doall rs)))
+
+(defn search-user-by-email [req]
+  (let [email (get (:params req) *params-email*)
+        local-users (sql/with-connection database-uri (sql-search-user-by-email email))]
+    {:status 200
+     :headers {"Content-Type" "application/json"}
+     :body (json/generate-string local-users)}))
+
+(defn sql-get-users [userids]
+  (cql/with-results
+    [rs
+     (cql/select (cql/table :users)
+                 (cql/where (in :users.id [1 2 3 4])))]
+    (doall rs)))
+
+(defn get-users [req]
+  (let [userids (json/parse-string (get (:params req) *params-userids*))
+        users (sql-get-users userids)]
+    {:status 200
+     :headers {"Content-Type" "application/json"}
+     :body (json/generate-string users)}))
+
 (defn app [req]
   ((condp = (:uri req)
      "/make-user" (wrap-params make-user)
      "/get-user-by-email" (wrap-params get-user-by-email)
      "/sync-user" (wrap-params sync-user)
      "/test-post" (wrap-params test-post)
+     "/search-user-by-email" (wrap-params search-user-by-email)
+     "/get-users" (wrap-params get-users)
      "/" (fn [req] {:status 200
                     :headers {"Content-Type" "text/html"}
                     :body "Hello, Dave."}))
