@@ -120,5 +120,5 @@
   (cql/with-results
     [rs
      (cql/select (cql/table :users)
-                 (cql/where (in :users.id [1 2 3 4])))]
+                 (cql/where (in :users.id userids)))]
     (doall rs)))
