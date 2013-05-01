@@ -149,15 +149,18 @@ public class NetworkUtils {
 			
 			String response = EntityUtils.toString(resp.getEntity());
 			
-			JSONArray eventsJSON = new JSONArray(response);
-			
 			remoteEvents = new ArrayList<MeetsterEvent>();
-			for (int i = 0; i < eventsJSON.length(); i++) {
-				JSONObject eventJSON = eventsJSON.getJSONObject(i);
-				try {
-					remoteEvents.add(new MeetsterEvent(context, eventJSON));
-				} catch (ParseException e) {
-					e.printStackTrace();
+
+			if (!response.equals("null")) {
+				JSONArray eventsJSON = new JSONArray(response);
+
+				for (int i = 0; i < eventsJSON.length(); i++) {
+					JSONObject eventJSON = eventsJSON.getJSONObject(i);
+					try {
+						remoteEvents.add(new MeetsterEvent(context, eventJSON));
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}

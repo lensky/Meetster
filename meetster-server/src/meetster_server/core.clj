@@ -17,7 +17,12 @@
 ;; JSON setup
 (add-encoder java.util.Date
              (fn [d jsonGenerator]
-               (.writeNumber jsonGenerator (.getTime d))))
+               (.writeRaw jsonGenerator ":")
+               (.writeRaw jsonGenerator (String/valueOf (.getTime d)))))
+(add-encoder java.sql.Timestamp
+             (fn [d jsonGenerator]
+               (.writeRaw jsonGenerator ":")
+               (.writeRaw jsonGenerator (String/valueOf (.getTime d)))))
 
 (defn make-user [req]
   (let [new-user-info (json/parse-string
