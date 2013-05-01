@@ -49,7 +49,7 @@ public class MeetsterSyncAdapter extends AbstractThreadedSyncAdapter {
 				
 				Date newDate = e.getCreationTime();
 				if (latestEventSynced.before(newDate))
-					latestEventSynced = newDate;
+					latestEventSynced = new Date(newDate.getTime() + 1);
 			}
 			
 			mApp.setLastSyncTime(latestEventSynced);
