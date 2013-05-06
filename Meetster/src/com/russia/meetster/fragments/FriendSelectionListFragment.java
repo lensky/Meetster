@@ -1,5 +1,6 @@
 package com.russia.meetster.fragments;
 
+import com.russia.meetster.MeetsterApplication;
 import com.russia.meetster.MeetsterLoaderManager;
 import com.russia.meetster.R;
 import com.russia.meetster.R.id;
@@ -59,7 +60,8 @@ public class FriendSelectionListFragment extends ListFragment {
 		this.getLoaderManager().initLoader(0, null, 
 				new MeetsterLoaderManager(mContext, friendsCursorAdapter, MeetsterContract.Friends.getUri(), 
 						MeetsterContract.Friends.getClassProjection(), 
-						null, null, null));
+						MeetsterContract.Friends._ID + "!=" + ((MeetsterApplication) this.getActivity().getApplicationContext()).getCurrentUserId(),
+						null, null));
 				
 		this.setListAdapter(friendsCursorAdapter);
 	}
