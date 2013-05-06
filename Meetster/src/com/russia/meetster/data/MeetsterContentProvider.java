@@ -257,7 +257,7 @@ public class MeetsterContentProvider extends ContentProvider {
 			List<String> pathSegments = uri.getPathSegments();
 			tableName = pathSegments.get(0);
 			if (pathSegments.size() > 1) {
-				addIdToWhere(selection, BaseColumns._ID, uri);
+				selection = addIdToWhere(selection, BaseColumns._ID, uri);
 			}
 			break;
 		}
@@ -281,7 +281,7 @@ public class MeetsterContentProvider extends ContentProvider {
 			List<String> pathSegments = uri.getPathSegments();
 			tableName = pathSegments.get(0);
 			if (pathSegments.size() > 1) {
-				addIdToWhere(selection, BaseColumns._ID, uri);
+				selection = addIdToWhere(selection, BaseColumns._ID, uri);
 			}
 			break;
 		}
